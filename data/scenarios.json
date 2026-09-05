@@ -12,11 +12,77 @@
         "etapes": [
           "Créer un dossier vide 'bac-a-sable' et l'ouvrir dans VSCode.",
           "Ouvrir un terminal intégré (menu Terminal > Nouveau terminal) et lancer 'git init'.",
-          "Créer un fichier 'essai.md' contenant une phrase, l'enregistrer.",
-          "Observer le fichier listé en \"U\" (Untracked) dans le panneau Source Control de VSCode.",
-          "Faire 'git add essai.md' (ou cliquer sur le + à côté du fichier dans VSCode) puis 'git commit -m \"Ajoute essai.md\"'.",
-          "Modifier une ligne du fichier, relancer 'git status' : observer le passage de l'état \"working directory\" à \"staged\" puis \"committed\".",
-          "Faire 'git log --oneline' pour voir l'historique des commits.",
+          "Créer un fichier 'readme.md' contenant une phrase, l'enregistrer.",
+          {
+            "texte": "Observer le fichier listé en \"U\" (Untracked) dans le panneau Controle de code source de VSCode.",
+            "image": "img/S0_1.png",
+            "alt": "Icône Contrôle de code source de VSCode avec une pastille indiquant 1 modification en attente"
+          },
+          {
+            "texte": "Renseigner les modifications effectuées sur le fichier (ici creation de ce dernier).",
+            "image": "img/S0_2.png",
+            "alt": "Panneau Modifications de VSCode : le message « création de redme.md » est saisi au-dessus du bouton Validation, le fichier readme.md est marqué U"
+          },
+          {
+            "texte": "Valider les modifications par 'Validation' puis publier la branche par 'Publier Branch'.",
+            "image": "img/S0_3.png",
+            "alt": "Bouton « Publier Branch » de VSCode, avec l'infobulle « Publier la Branch \"master\" »"
+          },
+          {
+            "texte": "Dans la barre de discussion en tout en haut, choisir si votre dépôt doit être public ou privé.",
+            "popup": {
+              "bouton": "Dépôt privé / public ?",
+              "titre": "Dépôt privé ou dépôt public ?",
+              "intro": "La différence fondamentale réside dans la visibilité de ton code sur GitHub.",
+              "tableau": {
+                "entetes": ["Critère", "Dépôt public", "Dépôt privé"],
+                "lignes": [
+                  [
+                    "Visibilité",
+                    "Tout le monde peut voir ton code",
+                    "Toi seul (et les collaborateurs invités)"
+                  ],
+                  [
+                    "Accès anonyme",
+                    "N'importe qui peut cloner ou télécharger le projet",
+                    "Impossible sans autorisation explicite"
+                  ],
+                  [
+                    "Indexation",
+                    "Référencé sur les moteurs de recherche et GitHub",
+                    "Totalement invisible dans les recherches"
+                  ],
+                  [
+                    "Contributions externes",
+                    "D'autres développeurs peuvent proposer du code (Pull Requests) ou signaler des bugs (Issues)",
+                    "Seules les personnes autorisées y ont accès"
+                  ]
+                ]
+              },
+              "sousTitre": "Quand choisir l'un ou l'autre ?",
+              "choix": [
+                {
+                  "label": "Public",
+                  "texte": "Idéal pour un projet open source, un portfolio pour montrer ce que tu sais faire à un recruteur, ou partager un outil avec la communauté."
+                },
+                {
+                  "label": "Privé",
+                  "texte": "À privilégier pour des projets d'apprentissage personnels, du code propriétaire, ou si le projet contient encore des données sensibles (pense toujours à ne jamais mettre de mots de passe ou de clés d'API dans ton code, même en privé)."
+                }
+              ],
+              "conclusion": "Le choix n'est pas définitif : tu peux à tout moment passer un dépôt de privé à public (ou l'inverse) dans les paramètres du projet sur le site de GitHub."
+            }
+          },
+          {
+            "texte": "Modifier une ligne du fichier, sauvegarder puis refaire les étapes 4. 5. et 6.",
+            "image": "img/S0_4.png",
+            "alt": "Le fichier readme.md est marqué M (modifié) dans VSCode et l'infobulle indique « Contrôle de code source - 1 changements en attente »"
+          },
+          {
+            "texte": "Pour voir l'historique des commits, regarder la partie au dessous Modifications dans le Contrôle de code source :",
+            "image": "img/S0_5.png",
+            "alt": "Graphe des commits dans VSCode : « ajout de la ligne 1 dans le fichier… » sur master, au-dessus de « création de redme.md » sur origin/master"
+          },
           "Recommencer 2 ou 3 fois (modifier, add, commit) pour que les gestes deviennent naturels."
         ]
       },
@@ -29,12 +95,16 @@
       ],
       "pieges": [
         "Confondre le dossier ouvert dans VSCode avec le dossier où 'git init' a été lancé (toujours vérifier avec 'pwd' ou la barre de titre du terminal).",
-        "Committer sans message clair : un message doit résumer le \"pourquoi\", pas relister le diff."
+        "Committer sans message clair : un message doit résumer le \"pourquoi\" et quelles modifications ont été faites."
       ],
       "verification": [
         "'git log --oneline' affiche au moins 3 commits.",
         "'git status' répond \"nothing to commit, working tree clean\" juste après un commit."
-      ]
+      ],
+      "verificationImage": {
+        "image": "img/S0_6.png",
+        "alt": "Terminal VSCode : « git status » répond « nothing to commit, working tree clean » et « git log --oneline » liste quatre commits, en regard du graphe des commits"
+      }
     },
     {
       "id": 1,
