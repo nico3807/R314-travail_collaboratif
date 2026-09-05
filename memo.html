@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mémo - R3.13 Travail collaboratif</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2230%27 cy=%2225%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2230%27 cy=%2275%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2270%27 cy=%2250%27 r=%2212%27 fill=%27%23b5560f%27/%3E%3Cpath d=%27M30 37 V63 M30 50 H58%27 stroke=%27%231c2333%27 stroke-width=%278%27 fill=%27none%27/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="memo">
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+    <header class="site-header">
+      <nav class="nav-wrap">
+        <a class="brand" href="index.html"
+          >R3.13 - Travail collaboratif
+          <small>Git · GitHub · VSCode, en binôme</small>
+        </a>
+        <div class="site-nav">
+          <a href="index.html" data-nav="index">Accueil</a>
+          <a href="prerequis.html" data-nav="prerequis">Prérequis</a>
+          <a href="concepts.html" data-nav="concepts">Concepts</a>
+          <a href="scenarios.html" data-nav="scenarios">Scénarios</a>
+          <a href="evaluation.html" data-nav="evaluation">Évaluation</a>
+          <a href="memo.html" data-nav="memo">Mémo</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="contenu">
+      <p class="eyebrow">Aide-mémoire</p>
+      <h1>Commandes Git et raccourcis VSCode</h1>
+      <p class="lede">À garder ouvert dans un onglet pendant les scénarios.</p>
+
+      <h2>Commandes Git essentielles</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Commande</th>
+            <th>À quoi elle sert</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>git init</code></td>
+            <td>Transforme le dossier courant en dépôt Git.</td>
+          </tr>
+          <tr>
+            <td><code>git clone &lt;url&gt;</code></td>
+            <td>Copie un dépôt distant en local, avec tout son historique.</td>
+          </tr>
+          <tr>
+            <td><code>git status</code></td>
+            <td>
+              Affiche l'état des fichiers (modifiés, en staging, suivis ou non).
+            </td>
+          </tr>
+          <tr>
+            <td><code>git add &lt;fichier&gt;</code></td>
+            <td>Place un fichier dans la zone de staging.</td>
+          </tr>
+          <tr>
+            <td><code>git commit -m "message"</code></td>
+            <td>
+              Enregistre une nouvelle photographie du projet dans l'historique
+              local.
+            </td>
+          </tr>
+          <tr>
+            <td><code>git push</code></td>
+            <td>Envoie les commits locaux vers le dépôt distant.</td>
+          </tr>
+          <tr>
+            <td><code>git pull</code></td>
+            <td>
+              Récupère les commits distants et les fusionne dans la branche
+              locale.
+            </td>
+          </tr>
+          <tr>
+            <td><code>git log --oneline --graph --all</code></td>
+            <td>
+              Visualise l'historique et ses éventuelles branches sous forme
+              condensée.
+            </td>
+          </tr>
+          <tr>
+            <td><code>git branch</code></td>
+            <td>Liste les branches locales.</td>
+          </tr>
+          <tr>
+            <td><code>git checkout -b nom-de-branche</code></td>
+            <td>Crée une nouvelle branche et bascule dessus.</td>
+          </tr>
+          <tr>
+            <td><code>git push -u origin nom-de-branche</code></td>
+            <td>
+              Publie une branche locale sur le dépôt distant pour la première
+              fois.
+            </td>
+          </tr>
+          <tr>
+            <td><code>git diff</code></td>
+            <td>Affiche les différences non encore stagées.</td>
+          </tr>
+          <tr>
+            <td><code>git revert &lt;hash&gt;</code></td>
+            <td>
+              Annule un commit en ajoutant un nouveau commit inverse (sûr sur un
+              historique partagé).
+            </td>
+          </tr>
+          <tr>
+            <td><code>git rm --cached &lt;fichier&gt;</code></td>
+            <td>Retire un fichier du suivi Git sans le supprimer du disque.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout danger">
+        <h4>Commande à éviter en binôme</h4>
+        <p>
+          <code>git reset --hard</code> et
+          <code>git push --force</code> réécrivent l'historique. Sur un dépôt
+          déjà partagé, cela peut faire disparaître le travail de l'autre. On
+          les réserve à un historique strictement local et non encore poussé.
+        </p>
+      </div>
+
+      <h2>VSCode : où cliquer</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>Où / raccourci</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ouvrir le panneau Source Control</td>
+            <td>
+              <kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd>, ou
+              l'icône de branche dans la barre latérale.
+            </td>
+          </tr>
+          <tr>
+            <td>Ouvrir la palette de commandes</td>
+            <td>
+              <kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>
+            </td>
+          </tr>
+          <tr>
+            <td>Cloner un dépôt</td>
+            <td>Palette de commandes &gt; <code>Git: Clone</code></td>
+          </tr>
+          <tr>
+            <td>Stage un fichier</td>
+            <td>Cliquer sur le « + » à côté du fichier dans Source Control</td>
+          </tr>
+          <tr>
+            <td>Changer de branche</td>
+            <td>Nom de la branche en bas à gauche de la fenêtre</td>
+          </tr>
+          <tr>
+            <td>Résoudre un conflit</td>
+            <td>
+              Cliquer sur le fichier en conflit ; utiliser les boutons «
+              Accepter la version actuelle / entrante / les deux »
+            </td>
+          </tr>
+          <tr>
+            <td>Ouvrir une Pull Request</td>
+            <td>
+              Onglet « Pull Requests » (icône GitHub) ajouté par l'extension
+              GitHub Pull Requests and Issues
+            </td>
+          </tr>
+          <tr>
+            <td>Voir qui a modifié une ligne</td>
+            <td>Extension GitLens, annotations en fin de ligne</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Convention de message de commit conseillée</h2>
+      <div class="card">
+        <p>
+          Un verbe à l'infinitif suivi d'un résumé court, en français ou en
+          anglais mais de façon cohérente pour tout le binôme :
+        </p>
+        <pre><code>Ajoute la page mentions légales
+Corrige le lien vers la page contact
+Retire un fichier indésirable du suivi</code></pre>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      Ressource R3.13 - BUT MMI, IUT de Béziers · Dépôt
+      <code>R314-travail_collaboratif</code>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

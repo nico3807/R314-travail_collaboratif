@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>R3.13 - Travail collaboratif &amp; versionnement</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2230%27 cy=%2225%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2230%27 cy=%2275%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2270%27 cy=%2250%27 r=%2212%27 fill=%27%23b5560f%27/%3E%3Cpath d=%27M30 37 V63 M30 50 H58%27 stroke=%27%231c2333%27 stroke-width=%278%27 fill=%27none%27/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="index">
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+    <header class="site-header">
+      <nav class="nav-wrap">
+        <a class="brand" href="index.html"
+          >R3.13 - Travail collaboratif
+          <small>Git · GitHub · VSCode, en binôme</small>
+        </a>
+        <div class="site-nav">
+          <a href="index.html" data-nav="index">Accueil</a>
+          <a href="prerequis.html" data-nav="prerequis">Prérequis</a>
+          <a href="concepts.html" data-nav="concepts">Concepts</a>
+          <a href="scenarios.html" data-nav="scenarios">Scénarios</a>
+          <a href="evaluation.html" data-nav="evaluation">Évaluation</a>
+          <a href="memo.html" data-nav="memo">Mémo</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="contenu">
+      <p class="eyebrow">TP - BUT MMI 2 · Ressource R3.13</p>
+      <h1>
+        Travail collaboratif sur un projet de développement, versionnement
+      </h1>
+      <p class="lede">
+        Un TP de 3&nbsp;heures, en binôme, pour s'approprier Git, GitHub et
+        VSCode au travers d'incidents provoqués volontairement :
+        synchronisation, conflit, branches, Pull Request et relecture de code.
+      </p>
+
+      <div class="grid cols-3" style="margin-top: 1.8rem">
+        <div class="card">
+          <p class="eyebrow">Dépôt de travail</p>
+          <p>
+            Tout se passe dans un unique dépôt GitHub partagé par le binôme,
+            nommé exactement :
+          </p>
+          <p><code>R314-travail_collaboratif</code></p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Organisation</p>
+          <p>
+            Binômes fixes. Les rôles « Étudiant·e A » et « Étudiant·e B »
+            s'alternent d'un scénario à l'autre : chacun·e doit avoir poussé,
+            tiré, résolu un conflit et fait une revue de code au moins une fois.
+          </p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Outils</p>
+          <p>
+            Git en ligne de commande, VSCode (panneau Source Control, éditeur de
+            fusion, extension GitHub Pull Requests and Issues) et un compte
+            GitHub par étudiant·e.
+          </p>
+        </div>
+      </div>
+
+      <h2>Déroulé de la séance (3h)</h2>
+      <ul class="timeline">
+        <li>
+          <time>0:00</time
+          ><span
+            >Accueil, objectifs, présentation du dépôt
+            <code>R314-travail_collaboratif</code> et des binômes. Vérification
+            rapide des prérequis (voir la page « Prérequis », à faire avant la
+            séance).</span
+          >
+        </li>
+        <li>
+          <time>0:15</time
+          ><span
+            ><strong>Scénario 0</strong> - Prise en main solo dans un dépôt bac
+            à sable (20 min).</span
+          >
+        </li>
+        <li>
+          <time>0:35</time
+          ><span
+            ><strong>Scénario 1</strong> - Création du dépôt commun, ajout du
+            binôme, premier commit synchronisé (30 min).</span
+          >
+        </li>
+        <li>
+          <time>1:05</time
+          ><span
+            ><strong>Scénario 2</strong> - Modifications parallèles sans conflit
+            (25 min).</span
+          >
+        </li>
+        <li>
+          <time>1:30</time
+          ><span
+            ><strong>Scénario 3</strong> - Le conflit provoqué et sa résolution
+            (35 min).</span
+          >
+        </li>
+        <li><time>2:05</time><span>Pause (10 min).</span></li>
+        <li>
+          <time>2:15</time
+          ><span
+            ><strong>Scénario 4</strong> - Branche dédiée, Pull Request et revue
+            de code croisée (35 min).</span
+          >
+        </li>
+        <li>
+          <time>2:50</time
+          ><span
+            ><strong>Scénario 5</strong> - Filet de sécurité :
+            <code>git revert</code> et <code>.gitignore</code> (20 min).</span
+          >
+        </li>
+        <li>
+          <time>3:10</time
+          ><span
+            >Bilan collectif, auto-évaluation avec la grille, questions
+            (10&nbsp;min de battement).</span
+          >
+        </li>
+      </ul>
+
+      <h2>Objectifs pédagogiques</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Savoir-faire technique</h3>
+          <ul>
+            <li>Cloner, ajouter, committer, pousser, tirer.</li>
+            <li>Créer et fusionner une branche.</li>
+            <li>Résoudre un conflit avec l'éditeur de fusion de VSCode.</li>
+            <li>Ouvrir, commenter et fusionner une Pull Request.</li>
+            <li>Annuler un commit partagé sans réécrire l'historique.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Posture collaborative</h3>
+          <ul>
+            <li>
+              Communiquer avant de pousser un travail qui touche au même
+              fichier.
+            </li>
+            <li>Écrire des messages de commit compréhensibles par l'autre.</li>
+            <li>
+              Accepter une remarque de revue de code sans la prendre pour une
+              critique personnelle.
+            </li>
+            <li>
+              Savoir qui a fait quoi et pourquoi, à tout moment, grâce à
+              l'historique.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top: 2rem">
+        <h4>Avant de commencer</h4>
+        <p>
+          Chaque étudiant·e doit avoir terminé la page
+          <a href="prerequis.html">Prérequis</a> <strong>avant</strong> la
+          séance : Git installé, compte GitHub créé, VSCode connecté. Le temps
+          de la séance est entièrement consacré aux scénarios collaboratifs.
+        </p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      Ressource R3.13 - BUT MMI, IUT de Béziers · Dépôt
+      <code>R314-travail_collaboratif</code>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

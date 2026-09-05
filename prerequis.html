@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prérequis - R3.13 Travail collaboratif</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2230%27 cy=%2225%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2230%27 cy=%2275%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2270%27 cy=%2250%27 r=%2212%27 fill=%27%23b5560f%27/%3E%3Cpath d=%27M30 37 V63 M30 50 H58%27 stroke=%27%231c2333%27 stroke-width=%278%27 fill=%27none%27/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="prerequis">
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+    <header class="site-header">
+      <nav class="nav-wrap">
+        <a class="brand" href="index.html"
+          >R3.13 - Travail collaboratif
+          <small>Git · GitHub · VSCode, en binôme</small>
+        </a>
+        <div class="site-nav">
+          <a href="index.html" data-nav="index">Accueil</a>
+          <a href="prerequis.html" data-nav="prerequis">Prérequis</a>
+          <a href="concepts.html" data-nav="concepts">Concepts</a>
+          <a href="scenarios.html" data-nav="scenarios">Scénarios</a>
+          <a href="evaluation.html" data-nav="evaluation">Évaluation</a>
+          <a href="memo.html" data-nav="memo">Mémo</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="contenu">
+      <p class="eyebrow">À faire avant la séance</p>
+      <h1>Installer et configurer son environnement</h1>
+      <p class="lede">
+        Compter 20 à 30 minutes. Ces étapes sont individuelles : chacun·e des
+        deux membres du binôme doit les avoir terminées de son côté.
+      </p>
+
+      <h2>1. Installer Git</h2>
+      <div class="card">
+        <p>Télécharger et installer Git pour votre système :</p>
+        <ul>
+          <li>
+            <strong>Windows</strong> :
+            <a
+              href="https://git-scm.com/download/win"
+              target="_blank"
+              rel="noopener"
+              >git-scm.com</a
+            >
+            (garder les options par défaut de l'installeur).
+          </li>
+          <li>
+            <strong>macOS</strong> : ouvrir un terminal et taper
+            <code>git --version</code> ; si Git n'est pas installé, macOS
+            propose d'installer les outils en ligne de commande Xcode.
+          </li>
+          <li>
+            <strong>Linux</strong> :
+            <code>sudo apt install git</code> (Debian/Ubuntu) ou l'équivalent de
+            votre distribution.
+          </li>
+        </ul>
+        <p>Vérifier l'installation dans un terminal :</p>
+        <pre><code>git --version</code></pre>
+      </div>
+
+      <h2>2. Se présenter à Git</h2>
+      <div class="card">
+        <p>
+          Git attribue chaque commit à une identité. Sans configuration, les
+          commits du binôme risquent d'apparaître sous un nom générique ou
+          erroné :
+        </p>
+        <pre><code>git config --global user.name "Prénom Nom"
+git config --global user.email "adresse@exemple.fr"</code></pre>
+        <p>
+          Utilisez de préférence l'adresse associée à votre compte GitHub, pour
+          que vos commits soient bien liés à votre profil.
+        </p>
+      </div>
+
+      <h2>3. Créer un compte GitHub</h2>
+      <div class="card">
+        <p>
+          Si ce n'est pas déjà fait, créer un compte gratuit sur
+          <a href="https://github.com/join" target="_blank" rel="noopener"
+            >github.com/join</a
+          >. Notez votre identifiant GitHub exact : votre binôme en aura besoin
+          pour vous ajouter comme collaborateur (scénario 1).
+        </p>
+      </div>
+
+      <h2>4. Installer VSCode et les extensions utiles</h2>
+      <div class="card">
+        <p>
+          Télécharger VSCode sur
+          <a
+            href="https://code.visualstudio.com/"
+            target="_blank"
+            rel="noopener"
+            >code.visualstudio.com</a
+          >, puis installer deux extensions depuis le panneau Extensions (icône
+          en forme de blocs, ou <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd>) :
+        </p>
+        <ul>
+          <li>
+            <strong>GitHub Pull Requests and Issues</strong> (éditeur officiel
+            GitHub) - permet de créer et relire des Pull Requests sans quitter
+            VSCode.
+          </li>
+          <li>
+            <strong>GitLens</strong> (optionnel mais recommandé) - enrichit
+            l'historique et affiche l'auteur de chaque ligne.
+          </li>
+        </ul>
+      </div>
+
+      <h2>5. Connecter VSCode à GitHub</h2>
+      <div class="card">
+        <p>
+          Dans VSCode, ouvrir la palette de commandes
+          (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>), taper
+          <code>GitHub: Sign in</code> et suivre le parcours d'authentification
+          dans le navigateur. Une icône de compte doit apparaître en bas à
+          gauche de VSCode une fois connecté·e.
+        </p>
+        <div class="callout warn">
+          <h4>Si l'authentification par navigateur ne fonctionne pas</h4>
+          <p>
+            Sur les postes de la salle où le navigateur par défaut est
+            restreint, utilisez un <em>Personal Access Token</em> (Settings &gt;
+            Developer settings &gt; Personal access tokens sur github.com) comme
+            mot de passe lors du premier <code>git push</code>.
+          </p>
+        </div>
+      </div>
+
+      <h2>Checklist avant la séance</h2>
+      <div class="card">
+        <ul>
+          <li>☐ <code>git --version</code> répond sans erreur.</li>
+          <li>
+            ☐ <code>git config --global user.name</code> et
+            <code>user.email</code> sont corrects.
+          </li>
+          <li>☐ Compte GitHub créé, identifiant noté.</li>
+          <li>
+            ☐ VSCode installé avec l'extension GitHub Pull Requests and Issues.
+          </li>
+          <li>☐ VSCode connecté à mon compte GitHub.</li>
+        </ul>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      Ressource R3.13 - BUT MMI, IUT de Béziers · Dépôt
+      <code>R314-travail_collaboratif</code>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

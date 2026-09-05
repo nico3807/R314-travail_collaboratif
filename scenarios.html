@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scénarios - R3.13 Travail collaboratif</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2230%27 cy=%2225%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2230%27 cy=%2275%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2270%27 cy=%2250%27 r=%2212%27 fill=%27%23b5560f%27/%3E%3Cpath d=%27M30 37 V63 M30 50 H58%27 stroke=%27%231c2333%27 stroke-width=%278%27 fill=%27none%27/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="scenarios">
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+    <header class="site-header">
+      <nav class="nav-wrap">
+        <a class="brand" href="index.html"
+          >R3.13 - Travail collaboratif
+          <small>Git · GitHub · VSCode, en binôme</small>
+        </a>
+        <div class="site-nav">
+          <a href="index.html" data-nav="index">Accueil</a>
+          <a href="prerequis.html" data-nav="prerequis">Prérequis</a>
+          <a href="concepts.html" data-nav="concepts">Concepts</a>
+          <a href="scenarios.html" data-nav="scenarios">Scénarios</a>
+          <a href="evaluation.html" data-nav="evaluation">Évaluation</a>
+          <a href="memo.html" data-nav="memo">Mémo</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="contenu">
+      <p class="eyebrow">Cœur du TP</p>
+      <h1>Les six scénarios du binôme</h1>
+      <p class="lede">
+        Travaillez dans le dépôt partagé <code>R314-travail_collaboratif</code>,
+        dans l'ordre indiqué. Cliquez sur une fiche pour l'ouvrir, cochez-la une
+        fois le scénario terminé et vérifié par les deux membres du binôme.
+      </p>
+
+      <div class="callout warn">
+        <h4>Un ordinateur chacun, un seul dépôt</h4>
+        <p>
+          Les deux étudiant·es doivent avoir cloné le
+          <strong>même</strong> dépôt GitHub, chacun·e dans un dossier local qui
+          lui est propre. On ne partage jamais un même dossier local entre deux
+          postes.
+        </p>
+      </div>
+
+      <div class="scenario-toolbar">
+        <strong style="font-size: 0.88rem">Vue :</strong>
+        <div class="role-toggle">
+          <button type="button" data-view="both" class="active">
+            Les deux rôles
+          </button>
+          <button type="button" data-view="a" class="role-a">
+            Étudiant·e A
+          </button>
+          <button type="button" data-view="b" class="role-b">
+            Étudiant·e B
+          </button>
+        </div>
+        <span class="progress-text" id="progress-text"
+          >0 / 0 scénarios réalisés</span
+        >
+      </div>
+
+      <div id="scenario-list" aria-live="polite">
+        <p class="lede">Chargement des scénarios…</p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      Ressource R3.13 - BUT MMI, IUT de Béziers · Dépôt
+      <code>R314-travail_collaboratif</code>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/scenarios.js"></script>
+  </body>
+</html>

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Concepts - R3.13 Travail collaboratif</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2230%27 cy=%2225%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2230%27 cy=%2275%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2270%27 cy=%2250%27 r=%2212%27 fill=%27%23b5560f%27/%3E%3Cpath d=%27M30 37 V63 M30 50 H58%27 stroke=%27%231c2333%27 stroke-width=%278%27 fill=%27none%27/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="concepts">
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+    <header class="site-header">
+      <nav class="nav-wrap">
+        <a class="brand" href="index.html"
+          >R3.13 - Travail collaboratif
+          <small>Git · GitHub · VSCode, en binôme</small>
+        </a>
+        <div class="site-nav">
+          <a href="index.html" data-nav="index">Accueil</a>
+          <a href="prerequis.html" data-nav="prerequis">Prérequis</a>
+          <a href="concepts.html" data-nav="concepts">Concepts</a>
+          <a href="scenarios.html" data-nav="scenarios">Scénarios</a>
+          <a href="evaluation.html" data-nav="evaluation">Évaluation</a>
+          <a href="memo.html" data-nav="memo">Mémo</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="contenu">
+      <p class="eyebrow">Avant de manipuler</p>
+      <h1>Les quatre zones et le vocabulaire de base</h1>
+      <p class="lede">
+        Comprendre où vit un fichier à chaque instant permet de dédramatiser la
+        plupart des messages d'erreur de Git.
+      </p>
+
+      <figure class="diagram" style="margin: 1.5rem 0">
+        <svg
+          viewBox="0 0 800 220"
+          role="img"
+          aria-labelledby="diagTitle diagDesc"
+        >
+          <title id="diagTitle">Les quatre zones de Git</title>
+          <desc id="diagDesc">
+            Répertoire de travail vers zone de staging via git add, vers dépôt
+            local via git commit, vers dépôt distant via git push, et retour via
+            git pull.
+          </desc>
+          <defs>
+            <marker
+              id="arrowhead"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="4"
+              orient="auto"
+            >
+              <path d="M0,0 L8,4 L0,8 Z" class="muted" />
+            </marker>
+          </defs>
+
+          <rect x="10" y="60" width="170" height="90" rx="10" class="zone" />
+          <text x="95" y="100" text-anchor="middle" font-weight="700">
+            Répertoire
+          </text>
+          <text x="95" y="120" text-anchor="middle" font-weight="700">
+            de travail
+          </text>
+          <text
+            x="95"
+            y="140"
+            text-anchor="middle"
+            class="muted"
+            font-size="12"
+          >
+            vos fichiers modifiés
+          </text>
+
+          <rect x="215" y="60" width="170" height="90" rx="10" class="zone" />
+          <text x="300" y="100" text-anchor="middle" font-weight="700">
+            Zone de
+          </text>
+          <text x="300" y="120" text-anchor="middle" font-weight="700">
+            staging (index)
+          </text>
+          <text
+            x="300"
+            y="140"
+            text-anchor="middle"
+            class="muted"
+            font-size="12"
+          >
+            fichiers prêts à committer
+          </text>
+
+          <rect x="420" y="60" width="170" height="90" rx="10" class="zone" />
+          <text x="505" y="100" text-anchor="middle" font-weight="700">
+            Dépôt local
+          </text>
+          <text x="505" y="120" text-anchor="middle" font-weight="700">
+            (.git)
+          </text>
+          <text
+            x="505"
+            y="140"
+            text-anchor="middle"
+            class="muted"
+            font-size="12"
+          >
+            historique sur votre poste
+          </text>
+
+          <rect
+            x="625"
+            y="60"
+            width="165"
+            height="90"
+            rx="10"
+            class="zone-remote"
+          />
+          <text x="707" y="100" text-anchor="middle" font-weight="700">
+            Dépôt distant
+          </text>
+          <text x="707" y="120" text-anchor="middle" font-weight="700">
+            (GitHub)
+          </text>
+          <text
+            x="707"
+            y="140"
+            text-anchor="middle"
+            class="muted"
+            font-size="12"
+          >
+            partagé avec le binôme
+          </text>
+
+          <path d="M180,95 H213" class="arrow" />
+          <text x="197" y="80" text-anchor="middle" font-size="12">
+            git add
+          </text>
+
+          <path d="M385,95 H418" class="arrow" />
+          <text x="401" y="80" text-anchor="middle" font-size="12">
+            git commit
+          </text>
+
+          <path d="M590,85 H623" class="arrow" />
+          <text x="606" y="70" text-anchor="middle" font-size="12">
+            git push
+          </text>
+
+          <path d="M623,115 H590" class="arrow" />
+          <text x="606" y="132" text-anchor="middle" font-size="12">
+            git pull
+          </text>
+        </svg>
+      </figure>
+
+      <h2>Vocabulaire essentiel</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Dépôt (repository)</h3>
+          <p>
+            Un dossier suivi par Git, qui garde la trace de tous les états
+            successifs de son contenu. Un dépôt <strong>local</strong> vit sur
+            votre poste ; un dépôt <strong>distant</strong> (souvent sur GitHub)
+            permet de le partager.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Commit</h3>
+          <p>
+            Une photographie du projet à un instant donné, accompagnée d'un
+            message et d'un auteur. Un commit ne modifie jamais le passé : il
+            s'ajoute à l'historique.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Remote</h3>
+          <p>
+            Le nom donné à l'adresse d'un dépôt distant, par défaut
+            <code>origin</code>. C'est vers lui que l'on pousse
+            (<code>push</code>) et depuis lui que l'on récupère
+            (<code>pull</code>).
+          </p>
+        </div>
+        <div class="card">
+          <h3>Clone</h3>
+          <p>
+            Créer une copie locale complète d'un dépôt distant, avec tout son
+            historique. Chaque étudiant·e du binôme clone le
+            <strong>même</strong> dépôt, chacun dans son propre dossier.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Branche</h3>
+          <p>
+            Une ligne de développement indépendante. La branche
+            <code>main</code> représente en général la version « officielle » du
+            projet ; une branche <code>feature/...</code> isole un travail en
+            cours avant de le proposer à la relecture.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Fusion (merge) &amp; conflit</h3>
+          <p>
+            Fusionner, c'est recombiner deux historiques qui ont divergé. Quand
+            la <strong>même ligne</strong> a été modifiée différemment des deux
+            côtés, Git ne peut pas décider seul : c'est un
+            <strong>conflit</strong>, à résoudre manuellement.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Pull Request (PR)</h3>
+          <p>
+            Une proposition d'intégrer une branche dans une autre (souvent vers
+            <code>main</code>), qui sert de support à la discussion et à la
+            relecture de code avant la fusion.
+          </p>
+        </div>
+        <div class="card">
+          <h3>.gitignore</h3>
+          <p>
+            Un fichier qui liste les fichiers et dossiers que Git doit ignorer
+            (fichiers temporaires, dossiers de dépendances, fichiers spécifiques
+            à une machine…).
+          </p>
+        </div>
+      </div>
+
+      <h2>Pourquoi ça grince parfois ?</h2>
+      <div class="callout">
+        <p>
+          La quasi-totalité des messages d'erreur de Git viennent d'une seule
+          cause : votre dépôt local n'est plus synchronisé avec le dépôt
+          distant. Le réflexe à acquérir pendant ce TP :
+          <strong
+            >on pull avant de commencer à travailler, et on pull avant de push
+            si le push est rejeté</strong
+          >. Le reste - conflits, branches, Pull Requests - n'est que la suite
+          logique de cette seule idée.
+        </p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      Ressource R3.13 - BUT MMI, IUT de Béziers · Dépôt
+      <code>R314-travail_collaboratif</code>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

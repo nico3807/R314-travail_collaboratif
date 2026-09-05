@@ -1,0 +1,251 @@
+{
+  "scenarios": [
+    {
+      "id": 0,
+      "titre": "Prise en main solo - le dépôt bac à sable",
+      "duree": "20 min",
+      "solo": true,
+      "objectif": "Manipuler seul(e) les commandes de base (init, add, commit, status, log) avant de risquer quoi que ce soit à deux.",
+      "contexte": "Chaque étudiant·e crée, sur sa machine, un dépôt local totalement jetable (il ne sera jamais partagé). L'idée est de se tromper sans conséquence.",
+      "commun": {
+        "resume": "Chacun·e de son côté, sur son propre poste",
+        "etapes": [
+          "Créer un dossier vide 'bac-a-sable' et l'ouvrir dans VSCode.",
+          "Ouvrir un terminal intégré (menu Terminal > Nouveau terminal) et lancer 'git init'.",
+          "Créer un fichier 'essai.md' contenant une phrase, l'enregistrer.",
+          "Observer le fichier listé en \"U\" (Untracked) dans le panneau Source Control de VSCode.",
+          "Faire 'git add essai.md' (ou cliquer sur le + à côté du fichier dans VSCode) puis 'git commit -m \"Ajoute essai.md\"'.",
+          "Modifier une ligne du fichier, relancer 'git status' : observer le passage de l'état \"working directory\" à \"staged\" puis \"committed\".",
+          "Faire 'git log --oneline' pour voir l'historique des commits.",
+          "Recommencer 2 ou 3 fois (modifier, add, commit) pour que les gestes deviennent naturels."
+        ]
+      },
+      "commandes": [
+        "git init",
+        "git status",
+        "git add <fichier>",
+        "git commit -m \"message\"",
+        "git log --oneline"
+      ],
+      "pieges": [
+        "Confondre le dossier ouvert dans VSCode avec le dossier où 'git init' a été lancé (toujours vérifier avec 'pwd' ou la barre de titre du terminal).",
+        "Committer sans message clair : un message doit résumer le \"pourquoi\", pas relister le diff."
+      ],
+      "verification": [
+        "'git log --oneline' affiche au moins 3 commits.",
+        "'git status' répond \"nothing to commit, working tree clean\" juste après un commit."
+      ]
+    },
+    {
+      "id": 1,
+      "titre": "Le dépôt commun prend vie",
+      "duree": "30 min",
+      "objectif": "Créer le dépôt GitHub partagé du binôme, s'ajouter mutuellement comme collaborateurs, cloner chacun de son côté, et obtenir un premier historique synchronisé.",
+      "contexte": "C'est le dépôt qui servira à TOUS les scénarios suivants. Il doit s'appeler exactement R314-travail_collaboratif.",
+      "roleA": {
+        "resume": "Étudiant·e A - crée le dépôt",
+        "etapes": [
+          "Sur github.com, créer un nouveau dépôt PUBLIC ou PRIVÉ nommé exactement 'R314-travail_collaboratif' (ne pas cocher \"Add a README\" pour l'instant).",
+          "Si le dépôt est privé : aller dans Settings > Collaborators, inviter l'étudiant·e B par son identifiant GitHub.",
+          "Dans VSCode : Palette de commandes (Ctrl/Cmd+Shift+P) > \"Git: Clone\", coller l'URL du dépôt, choisir un dossier local.",
+          "Créer un fichier 'journal.md' avec la ligne : '- [A] Premier commit du binôme.'",
+          "Dans le panneau Source Control : stage le fichier, écrire un message de commit clair, valider (✓), puis \"Push\"."
+        ]
+      },
+      "roleB": {
+        "resume": "Étudiant·e B - rejoint le dépôt",
+        "etapes": [
+          "Accepter l'invitation de collaboration reçue par email ou dans l'onglet Notifications de GitHub.",
+          "Dans VSCode : \"Git: Clone\" avec la même URL de dépôt, dans un dossier local différent de celui de A (chacun a sa propre copie !).",
+          "Si le fichier 'journal.md' de A n'est pas encore visible : faire \"Pull\" depuis le panneau Source Control.",
+          "Vérifier que le contenu de 'journal.md' correspond exactement à ce que A a écrit.",
+          "Ajouter une nouvelle ligne à la suite : '- [B] Bien reçu, à mon tour !'",
+          "Stage, commit avec un message clair, Push."
+        ]
+      },
+      "commandes": [
+        "git clone <url>",
+        "git add .",
+        "git commit -m \"message\"",
+        "git push",
+        "git pull"
+      ],
+      "pieges": [
+        "Cloner deux fois dans le même dossier (toujours vérifier le chemin avant de cloner).",
+        "Oublier 'git pull' avant de commencer à travailler : on risque de partir d'une version obsolète.",
+        "Mauvaise configuration de 'git config --global user.name/email' : les commits apparaissent sous le mauvais nom."
+      ],
+      "verification": [
+        "Sur GitHub, 'journal.md' contient bien les deux lignes, dans l'ordre.",
+        "'git log --oneline --all' (dans les DEUX dossiers locaux) affiche les mêmes 2 commits, avec deux auteurs différents."
+      ]
+    },
+    {
+      "id": 2,
+      "titre": "Modifications parallèles, deux fichiers différents",
+      "duree": "25 min",
+      "objectif": "Comprendre ce qui se passe quand le binôme travaille en même temps sur des fichiers différents : pas de conflit, mais un pull est quand même nécessaire.",
+      "contexte": "A et B travaillent réellement en même temps, sans se concerter sur l'ordre des push.",
+      "roleA": {
+        "resume": "Étudiant·e A",
+        "etapes": [
+          "Sans attendre B, créer un fichier 'page-a.md' avec un court texte.",
+          "Stage, commit (\"Ajoute la page A\"), puis Push immédiatement."
+        ]
+      },
+      "roleB": {
+        "resume": "Étudiant·e B (en parallèle, sans pull préalable)",
+        "etapes": [
+          "En même temps que A (ne pas attendre !), créer un fichier 'page-b.md' avec un court texte.",
+          "Stage, commit (\"Ajoute la page B\").",
+          "Tenter un Push : VSCode annonce que le push est rejeté (\"Updates were rejected because the remote contains work that you do not have\").",
+          "Faire \"Pull\" : Git fusionne automatiquement (aucun conflit, les fichiers sont différents). Un éditeur de message de commit de fusion peut s'ouvrir : valider tel quel.",
+          "Relancer \"Push\" : il passe cette fois."
+        ]
+      },
+      "commandes": [
+        "git add .",
+        "git commit -m \"message\"",
+        "git push",
+        "git pull",
+        "git log --oneline --graph --all"
+      ],
+      "pieges": [
+        "Paniquer devant le message de rejet : ce n'est pas une erreur, c'est une protection normale.",
+        "Ne pas comprendre pourquoi un \"merge commit\" apparaît alors qu'il n'y a pas eu de conflit : c'est parce que l'historique a divergé, même sans collision de contenu."
+      ],
+      "verification": [
+        "'git log --oneline --graph --all' fait apparaître une bifurcation qui se rejoint.",
+        "Les deux fichiers 'page-a.md' et 'page-b.md' sont présents chez A et chez B après un dernier pull côté A."
+      ]
+    },
+    {
+      "id": 3,
+      "titre": "Le conflit provoqué",
+      "duree": "35 min",
+      "objectif": "Provoquer volontairement un conflit sur la même ligne du même fichier, puis le résoudre avec l'éditeur de fusion à trois vues de VSCode.",
+      "contexte": "Cette fois, A et B modifient délibérément la même ligne du même fichier, sans se prévenir à l'avance. Le but est de vivre le conflit pour ne plus le craindre.",
+      "roleB": {
+        "resume": "Étudiant·e B - modifie et pousse en premier",
+        "etapes": [
+          "Ouvrir 'journal.md', remplacer la toute première ligne par : '# Journal du binôme (version B)'.",
+          "Stage, commit (\"Renomme le titre - version B\"), Push (accepté, B est arrivé le premier)."
+        ]
+      },
+      "roleA": {
+        "resume": "Étudiant·e A - modifie la même ligne sans avoir pull",
+        "etapes": [
+          "Sans faire de pull au préalable, ouvrir 'journal.md' et remplacer la même première ligne par : '# Journal du binôme (version A)'.",
+          "Stage, commit (\"Renomme le titre - version A\"), tenter un Push : rejeté.",
+          "Faire \"Pull\" : cette fois Git ne peut pas décider seul, il signale un CONFLIT (le fichier apparaît avec un ⚠ et des marqueurs '<<<<<<<', '=======', '>>>>>>>').",
+          "Cliquer sur le fichier en conflit : VSCode ouvre l'éditeur de fusion 3 vues (version actuelle / version entrante / résultat).",
+          "Se concerter à l'oral avec B pour décider du titre final (ex: garder une des deux versions, ou en écrire une troisième).",
+          "Utiliser les boutons \"Accepter la version actuelle\", \"Accepter la version entrante\" ou éditer directement le résultat, jusqu'à ce qu'il ne reste plus aucun marqueur '<<<<<<<'.",
+          "Marquer le fichier comme résolu (stage), puis valider le commit de fusion proposé automatiquement, et Push."
+        ]
+      },
+      "commandes": [
+        "git pull",
+        "git status",
+        "git add <fichier résolu>",
+        "git commit",
+        "git push"
+      ],
+      "pieges": [
+        "Commiter le fichier alors qu'il contient encore des marqueurs '<<<<<<<' ou '=======' (toujours relire le fichier entier avant de stage).",
+        "Croire que \"Pull\" va choisir tout seul la bonne version : sur la même ligne, c'est humainement qu'on tranche.",
+        "Utiliser 'git push --force' pour \"forcer\" le push rejeté : à proscrire absolument sur un historique partagé."
+      ],
+      "verification": [
+        "Le fichier 'journal.md' final ne contient plus aucun marqueur de conflit.",
+        "'git log --oneline --graph' affiche un commit de fusion avec deux parents.",
+        "A et B ont, après un dernier pull de chaque côté, exactement le même contenu."
+      ]
+    },
+    {
+      "id": 4,
+      "titre": "Travailler par branche et ouvrir une Pull Request",
+      "duree": "35 min",
+      "objectif": "Isoler un travail dans une branche dédiée, la publier, ouvrir une Pull Request, faire une revue de code croisée avec au moins un commentaire, puis fusionner.",
+      "contexte": "Le workflow le plus utilisé en entreprise : on ne travaille (presque) jamais directement sur 'main'.",
+      "roleB": {
+        "resume": "Étudiant·e B - pilote la fonctionnalité",
+        "etapes": [
+          "Dans VSCode, en bas à gauche, cliquer sur le nom de la branche courante puis \"Créer une nouvelle branche\" : 'feature/mentions-legales'.",
+          "Créer un fichier 'mentions.html' avec un contenu minimal (titre + une phrase).",
+          "Stage, commit (\"Ajoute la page mentions légales\").",
+          "Push : VSCode propose \"Publish Branch\" (première fois qu'on pousse cette branche) - cliquer dessus.",
+          "Sur GitHub (ou via l'extension \"GitHub Pull Requests and Issues\" dans VSCode), ouvrir une Pull Request de 'feature/mentions-legales' vers 'main', avec un titre et une description.",
+          "Assigner A comme reviewer (\"Reviewers\" dans le panneau de droite de la PR)."
+        ]
+      },
+      "roleA": {
+        "resume": "Étudiant·e A - relit et challenge",
+        "etapes": [
+          "Ouvrir la Pull Request (sur github.com ou dans l'onglet \"Pull Requests\" de VSCode).",
+          "Lire le \"diff\" (les lignes ajoutées/supprimées) proposé par B.",
+          "Laisser au moins un commentaire précis sur une ligne (ex : demander de corriger une formulation, ou d'ajouter une information manquante).",
+          "Soumettre la revue avec le statut \"Request changes\" (demande de modification).",
+          "Attendre la correction de B, puis relire le nouveau commit ajouté automatiquement à la PR, et si tout va bien : \"Approve\", puis \"Merge pull request\" (merge commit)."
+        ]
+      },
+      "commandes": [
+        "git checkout -b feature/...",
+        "git push -u origin feature/...",
+        "git checkout main",
+        "git pull",
+        "git branch -d feature/..."
+      ],
+      "pieges": [
+        "Merger sa propre PR sans revue croisée : le but pédagogique est justement de se faire relire.",
+        "Ouvrir la PR contre la mauvaise branche de base.",
+        "Oublier, une fois la PR fusionnée, de repasser sur 'main' et de faire 'git pull' des deux côtés avant de continuer à travailler."
+      ],
+      "verification": [
+        "La Pull Request est marquée \"Merged\" sur GitHub.",
+        "'main' contient 'mentions.html' chez A ET chez B après un pull.",
+        "Au moins un commentaire de revue est visible dans l'historique de la PR.",
+        "La branche 'feature/mentions-legales' a été supprimée (localement et sur GitHub) une fois fusionnée."
+      ]
+    },
+    {
+      "id": 5,
+      "titre": "Filet de sécurité : erreur de commit et fichier indésirable",
+      "duree": "20 min",
+      "objectif": "Savoir réagir à deux incidents fréquents : annuler proprement un commit déjà partagé, et retirer un fichier qui n'aurait jamais dû être versionné.",
+      "contexte": "Deux mini-incidents à enchaîner rapidement, en fin de séance.",
+      "roleA": {
+        "resume": "Étudiant·e A - provoque puis annule",
+        "etapes": [
+          "Modifier 'journal.md' en y supprimant une information importante par erreur (\"faute de frappe\" volontaire), commit, push.",
+          "Une fois que B a repéré le problème (partie B ci-contre), utiliser \"Source Control\" > clic droit sur le commit fautif dans l'historique > \"Revert Commit\" (ou 'git revert <hash>' en ligne de commande).",
+          "Vérifier le contenu restauré, push."
+        ]
+      },
+      "roleB": {
+        "resume": "Étudiant·e B - repère l'erreur et versionne un fichier indésirable",
+        "etapes": [
+          "Après le push de A, faire un pull et repérer l'information manquante dans 'journal.md' : le signaler à A à l'oral pour qu'iel fasse le revert.",
+          "En parallèle, créer par erreur un fichier '.DS_Store' (ou un fichier 'notes-perso.tmp') à la racine et le committer par erreur avec le reste.",
+          "Une fois l'erreur repérée (par soi-même ou par A en relisant les fichiers), créer un fichier '.gitignore' listant ce type de fichier.",
+          "Retirer le fichier du suivi Git sans le supprimer du disque : 'git rm --cached notes-perso.tmp', puis commit (\"Retire un fichier indésirable + ajoute .gitignore\"), push."
+        ]
+      },
+      "commandes": [
+        "git revert <hash>",
+        "git log --oneline",
+        "git rm --cached <fichier>",
+        "echo \"...\" > .gitignore"
+      ],
+      "pieges": [
+        "Utiliser 'git reset --hard' pour \"annuler\" un commit déjà poussé et partagé : cela réécrit l'historique commun et complique la vie du binôme. 'git revert' est la solution sûre.",
+        "Supprimer le fichier indésirable avec la corbeille du système au lieu de 'git rm --cached' : le fichier reste alors suivi par Git s'il est recréé."
+      ],
+      "verification": [
+        "'journal.md' est revenu à un contenu correct, ET l'historique garde une trace des deux commits (le fautif et le revert) : rien n'a été effacé.",
+        "'.gitignore' existe et est pertinent.",
+        "Le fichier indésirable n'apparaît plus dans 'git status' même s'il est recréé localement."
+      ]
+    }
+  ]
+}
