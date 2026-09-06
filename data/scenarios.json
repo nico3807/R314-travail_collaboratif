@@ -111,22 +111,44 @@
       "titre": "Le dépôt commun prend vie",
       "duree": "30 min",
       "objectif": "Créer le dépôt GitHub partagé du binôme, s'ajouter mutuellement comme collaborateurs, cloner chacun de son côté, et obtenir un premier historique synchronisé.",
-      "contexte": "C'est le dépôt qui servira à TOUS les scénarios suivants. Il doit s'appeler exactement R314-travail_collaboratif.",
+      "contexte": "C'est le dépôt qui servira à TOUS les scénarios suivants. Il doit s'appeler exactement depot-partage.",
       "roleA": {
         "resume": "Étudiant·e A - crée le dépôt",
         "etapes": [
-          "Sur github.com, créer un nouveau dépôt PUBLIC ou PRIVÉ nommé exactement 'R314-travail_collaboratif' (ne pas cocher \"Add a README\" pour l'instant).",
-          "Si le dépôt est privé : aller dans Settings > Collaborators, inviter l'étudiant·e B par son identifiant GitHub.",
-          "Dans VSCode : Palette de commandes (Ctrl/Cmd+Shift+P) > \"Git: Clone\", coller l'URL du dépôt, choisir un dossier local.",
+          {
+            "texte": "Sur github.com, créer un nouveau dépôt PUBLIC ou PRIVÉ nommé exactement 'depot-partage' (ne pas cocher \"Add a README\" pour l'instant).",
+            "image": "img/S1_1.png",
+            "alt": "Formulaire « Create a new repository » de GitHub : le nom depot-partage est saisi, la visibilité est sur Private et l'option Add README est désactivée"
+          },
+          {
+            "texte": "Si le dépôt est privé : une fois créé, cliquer sur Invite collaborators, puis Add people pour inviter l'étudiant·e B par son identifiant GitHub.",
+            "images": [
+              {
+                "image": "img/S1_2.png",
+                "alt": "Page d'accueil du dépôt depot-partage, avec le bouton « Invite collaborators » encadré en rouge"
+              },
+              {
+                "image": "img/S1_3.png",
+                "alt": "Fenêtre « Add people to depot-partage » : le compte à inviter est sélectionné, à côté du bouton « Add nico3807 »"
+              }
+            ]
+          },
+          "Dans VSCode, ouvrir un nouveau dossier nommé 'depot-partage' (pour des raisons de simplification, on conseille de nommer le dossier avec le même nom que le dépôt).",
+          "Dans VSCode : Palette de commandes (Ctrl/Cmd+Shift+P) > \"Git: Clone\". Cliquer sur 'Cloner à partir de GitHub', puis sélectionner la même URL de dépôt. Choisir alors un dossier local et l'ouvrir dans vscode.",
           "Créer un fichier 'journal.md' avec la ligne : '- [A] Premier commit du binôme.'",
-          "Dans le panneau Source Control : stage le fichier, écrire un message de commit clair, valider (✓), puis \"Push\"."
+          "Dans le panneau Source Control : écrire un message de commit clair, valider (✓), puis \"Push\" sélectionner le dépôt.",
+          {
+            "texte": "Lorsque B a terminé ses modifications, synchroniser les changements.",
+            "image": "img/S1_4.png",
+            "alt": "Barre d'état de VSCode sur la branche main, avec l'infobulle « depot-partage (Git) - Synchroniser les changements »"
+          }
         ]
       },
       "roleB": {
         "resume": "Étudiant·e B - rejoint le dépôt",
         "etapes": [
           "Accepter l'invitation de collaboration reçue par email ou dans l'onglet Notifications de GitHub.",
-          "Dans VSCode : \"Git: Clone\" avec la même URL de dépôt, dans un dossier local différent de celui de A (chacun a sa propre copie !).",
+          "Dans VSCode : \"Git: Clone\". Cliquer sur 'Cloner à partir de GitHub', puis sélectionner la même URL de dépôt. Choisir alors un dossier local différent de celui de A (chacun a sa propre copie !).",
           "Si le fichier 'journal.md' de A n'est pas encore visible : faire \"Pull\" depuis le panneau Source Control.",
           "Vérifier que le contenu de 'journal.md' correspond exactement à ce que A a écrit.",
           "Ajouter une nouvelle ligne à la suite : '- [B] Bien reçu, à mon tour !'",
@@ -141,9 +163,6 @@
         "git pull"
       ],
       "pieges": [
-        "'Publier Branch' n'est pas 'Push' : ce bouton n'apparaît que si le dossier local n'a aucun dépôt distant, et il CRÉE un dépôt sur GitHub. Comme celui-ci existe déjà (étape 1), GitHub répond \"GitHub repository already exists\". C'est le clone de l'étape 3 qui installe le lien vers le dépôt distant : ensuite, le bouton devient \"Synchroniser les modifications\". Règle à retenir : le dépôt existe déjà, donc on clone, on ne publie pas.",
-        "Avoir commencé à travailler dans un dossier créé à la main plutôt que dans le dossier cloné : soit on recommence dans le clone (recommandé), soit on rattache le dossier avec 'git remote add origin <url>' puis 'git push -u origin main'.",
-        "Branche 'master' en local, 'main' sur GitHub : VSCode nomme parfois la première branche 'master' alors que GitHub attend 'main', et on se retrouve avec deux branches parallèles sur le même dépôt. Vérifier le nom en bas à gauche de VSCode, et au besoin 'git branch -M main' AVANT le premier push.",
         "Cloner deux fois dans le même dossier (toujours vérifier le chemin avant de cloner).",
         "Oublier 'git pull' avant de commencer à travailler : on risque de partir d'une version obsolète.",
         "Mauvaise configuration de 'git config --global user.name/email' : les commits apparaissent sous le mauvais nom."
