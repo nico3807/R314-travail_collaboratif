@@ -141,6 +141,9 @@
         "git pull"
       ],
       "pieges": [
+        "'Publier Branch' n'est pas 'Push' : ce bouton n'apparaît que si le dossier local n'a aucun dépôt distant, et il CRÉE un dépôt sur GitHub. Comme celui-ci existe déjà (étape 1), GitHub répond \"GitHub repository already exists\". C'est le clone de l'étape 3 qui installe le lien vers le dépôt distant : ensuite, le bouton devient \"Synchroniser les modifications\". Règle à retenir : le dépôt existe déjà, donc on clone, on ne publie pas.",
+        "Avoir commencé à travailler dans un dossier créé à la main plutôt que dans le dossier cloné : soit on recommence dans le clone (recommandé), soit on rattache le dossier avec 'git remote add origin <url>' puis 'git push -u origin main'.",
+        "Branche 'master' en local, 'main' sur GitHub : VSCode nomme parfois la première branche 'master' alors que GitHub attend 'main', et on se retrouve avec deux branches parallèles sur le même dépôt. Vérifier le nom en bas à gauche de VSCode, et au besoin 'git branch -M main' AVANT le premier push.",
         "Cloner deux fois dans le même dossier (toujours vérifier le chemin avant de cloner).",
         "Oublier 'git pull' avant de commencer à travailler : on risque de partir d'une version obsolète.",
         "Mauvaise configuration de 'git config --global user.name/email' : les commits apparaissent sous le mauvais nom."
