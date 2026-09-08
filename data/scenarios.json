@@ -224,7 +224,12 @@
         "resume": "Étudiant·e B - modifie et pousse en premier",
         "etapes": [
           "Ouvrir 'journal.md', remplacer la toute première ligne par : '# Journal du binôme (version B)'.",
-          "Stage, commit (\"Renomme le titre - version B\"), Push (accepté, B est arrivé le premier)."
+          "Stage, commit (\"Renomme le titre - version B\"), Push (accepté, B est arrivé le premier).",
+          {
+            "texte": "Après les modifications de l'étudiant·e A, synchroniser (pull) les changements pour visualiser le fichier modifié avec les 2 changements.",
+            "image": "img/S3_3.png",
+            "alt": "Barre d'état de VSCode sur la branche main, avec l'infobulle « depot-partage (Git) - Synchroniser les changements »"
+          }
         ]
       },
       "roleA": {
@@ -232,11 +237,18 @@
         "etapes": [
           "Sans faire de pull au préalable, ouvrir 'journal.md' et remplacer la même première ligne par : '# Journal du binôme (version A)'.",
           "Stage, commit (\"Renomme le titre - version A\"), tenter un Push : rejeté.",
-          "Faire \"Pull\" : cette fois Git ne peut pas décider seul, il signale un CONFLIT (le fichier apparaît avec un ⚠ et des marqueurs '<<<<<<<', '=======', '>>>>>>>').",
+          {
+            "texte": "Faire \"Pull\" : cette fois Git ne peut pas décider seul, il signale un CONFLIT (le fichier apparaît avec une demande de confirmation.",
+            "image": "img/S3_1.png",
+            "alt": "journal.md ouvert dans VSCode avec les marqueurs de conflit : « Modification actuelle » en vert, « Modification entrante » en bleu, et la barre d'actions « Accepter la modification actuelle | Accepter la modification entrante | Accepter les deux modifications | Comparer les modifications »"
+          },
           "Cliquer sur le fichier en conflit : VSCode ouvre l'éditeur de fusion 3 vues (version actuelle / version entrante / résultat).",
-          "Se concerter à l'oral avec B pour décider du titre final (ex: garder une des deux versions, ou en écrire une troisième).",
-          "Utiliser les boutons \"Accepter la version actuelle\", \"Accepter la version entrante\" ou éditer directement le résultat, jusqu'à ce qu'il ne reste plus aucun marqueur '<<<<<<<'.",
-          "Marquer le fichier comme résolu (stage), puis valider le commit de fusion proposé automatiquement, et Push."
+          {
+            "texte": "Accepter par exemple les deux modifications et observer ce qu'il se passe.",
+            "image": "img/S3_2.png",
+            "alt": "journal.md après acceptation des deux modifications : les titres « version A » et « version B » se suivent, sans marqueur de conflit"
+          },
+          "Sauvegarder le nouveau fichier avec les 2 modifications, accepter les modifications après texte de commit puis valider."
         ]
       },
       "commandes": [
@@ -254,7 +266,7 @@
       "verification": [
         "Le fichier 'journal.md' final ne contient plus aucun marqueur de conflit.",
         "'git log --oneline --graph' affiche un commit de fusion avec deux parents.",
-        "A et B ont, après un dernier pull de chaque côté, exactement le même contenu."
+        "A et B ont, après un dernier pull de chaque côté, exactement le même contenu"
       ]
     },
     {
