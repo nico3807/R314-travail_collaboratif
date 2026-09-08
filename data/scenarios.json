@@ -238,7 +238,7 @@
           "Sans faire de pull au préalable, ouvrir 'journal.md' et remplacer la même première ligne par : '# Journal du binôme (version A)'.",
           "Stage, commit (\"Renomme le titre - version A\"), tenter un Push : rejeté.",
           {
-            "texte": "Faire \"Pull\" : cette fois Git ne peut pas décider seul, il signale un CONFLIT (le fichier apparaît avec une demande de confirmation.",
+            "texte": "Faire \"Pull\" : cette fois Git ne peut pas décider seul, il signale un CONFLIT (le fichier apparaît avec une demande de confirmation).",
             "image": "img/S3_1.png",
             "alt": "journal.md ouvert dans VSCode avec les marqueurs de conflit : « Modification actuelle » en vert, « Modification entrante » en bleu, et la barre d'actions « Accepter la modification actuelle | Accepter la modification entrante | Accepter les deux modifications | Comparer les modifications »"
           },
@@ -266,7 +266,7 @@
       "verification": [
         "Le fichier 'journal.md' final ne contient plus aucun marqueur de conflit.",
         "'git log --oneline --graph' affiche un commit de fusion avec deux parents.",
-        "A et B ont, après un dernier pull de chaque côté, exactement le même contenu"
+        "A et B ont, après un dernier pull de chaque côté, exactement le même contenu."
       ]
     },
     {
