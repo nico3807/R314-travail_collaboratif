@@ -282,7 +282,25 @@
           "Créer un fichier 'mentions.html' avec un contenu minimal (titre + une phrase).",
           "Stage, commit (\"Ajoute la page mentions légales\").",
           "Push : VSCode propose \"Publish Branch\" (première fois qu'on pousse cette branche) - cliquer dessus.",
-          "Sur GitHub (ou via l'extension \"GitHub Pull Requests and Issues\" dans VSCode), ouvrir une Pull Request de 'feature/mentions-legales' vers 'main', avec un titre et une description.",
+          {
+            "texte": "Dans la barre d'activité tout à gauche de VSCode, cliquez sur l'icône GitHub (le petit chat/octocat) — si elle n'apparaît pas, c'est que l'extension n'est pas installée ou pas activée.",
+            "image": "img/S4_3.png",
+            "alt": "Barre d'activité de VSCode : l'icône GitHub (octocat) est sélectionnée, le panneau Problèmes est ouvert à côté"
+          },
+          {
+            "texte": "Dans le panneau qui s'ouvre, cliquez sur le bouton \"Create Pull Request\", ou passez par la palette de commandes (Ctrl/Cmd+Shift+P) et tapez GitHub Pull Requests: Create Pull Request.",
+            "images": [
+              {
+                "image": "img/S4_4.png",
+                "alt": "Panneau GitHub de VSCode, section « Demandes De Tirage (Pull Re… ) », avec le bouton de création de Pull Request encadré en rouge"
+              },
+              {
+                "image": "img/S4_5.png",
+                "alt": "Vue « Créer » d'une demande de tirage : BASE sur main, MERGE depuis feature/mentions-legal…, le titre « Ajoute la page mentions légales », une description vide et le bouton Create"
+              }
+            ]
+          },
+          "Une vue de création s'affiche : vérifiez la branche de base (main) et la branche source (feature/mentions-legales), remplissez titre et description, puis validez.",
           "Assigner A comme reviewer (\"Reviewers\" dans le panneau de droite de la PR)."
         ]
       },
@@ -292,7 +310,19 @@
           "Ouvrir la Pull Request (sur github.com ou dans l'onglet \"Pull Requests\" de VSCode).",
           "Lire le \"diff\" (les lignes ajoutées/supprimées) proposé par B.",
           "Laisser au moins un commentaire précis sur une ligne (ex : demander de corriger une formulation, ou d'ajouter une information manquante).",
-          "Soumettre la revue avec le statut \"Request changes\" (demande de modification).",
+          {
+            "texte": "Soumettre la revue avec le statut \"Request changes\" (demande de modification).",
+            "images": [
+              {
+                "image": "img/S4_1.png",
+                "alt": "Onglet Pull Request #1 dans VSCode : un commentaire « Rajouter une image dans la page » est saisi au-dessus des boutons Approve, Comment et Request Changes"
+              },
+              {
+                "image": "img/S4_2.png",
+                "alt": "La Pull Request « Ajoute la page mentions légales #1 » côté B : elle est Open et porte la mention « cocolas007-ui (collaborator) requested changes »"
+              }
+            ]
+          },
           "Attendre la correction de B, puis relire le nouveau commit ajouté automatiquement à la PR, et si tout va bien : \"Approve\", puis \"Merge pull request\" (merge commit)."
         ]
       },
