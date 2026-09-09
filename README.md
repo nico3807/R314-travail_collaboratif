@@ -20,16 +20,16 @@ branches, Pull Request, incidents).
 
 ## Utiliser ce dépôt en tant qu'enseignant·e
 
-Ce dépôt est aussi, littéralement, le dépôt que chaque binôme doit créer sur
-GitHub sous le nom `R314-travail_collaboratif` pour réaliser les scénarios
-(voir Scénario 1). Deux façons de le distribuer :
+Attention à ne pas confondre deux dépôts :
 
-- **Comme support de cours uniquement** : pousser ce dossier tel quel sur un
-  dépôt GitHub (public ou privé, activer GitHub Pages sur la branche `main`
-  pour un lien cliquable sans serveur local), et laisser chaque binôme créer
-  son propre dépôt vide pour le scénario 1.
-- **Comme dépôt de départ** : donner ce dépôt (ou un dépôt vide portant le
-  même nom) directement à chaque binôme comme point de départ.
+- **celui-ci**, `R314-travail_collaboratif`, qui contient le support de TP ;
+- **`depot-partage`**, que chaque binôme crée lui-même au scénario 1 et dans
+  lequel se déroulent tous les scénarios.
+
+Pour distribuer le support, pousser ce dossier tel quel sur un dépôt GitHub
+(public ou privé, activer GitHub Pages sur la branche `main` pour un lien
+cliquable sans serveur local). Chaque binôme crée ensuite son propre dépôt
+vide `depot-partage`.
 
 ## Structure
 

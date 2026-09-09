@@ -35,11 +35,15 @@
       '</div>';
   }
 
-  function renderFigure(fig) {
-    if (!fig || !fig.image) return '';
-    return '<figure class="etape-figure">' +
-      '<img src="' + escapeHtml(fig.image) + '" alt="' + escapeHtml(fig.alt || '') + '" loading="lazy">' +
-      '</figure>';
+  // Une étape porte soit une capture (image/alt), soit plusieurs (images: []).
+  function renderFigures(source) {
+    if (!source) return '';
+    var figures = source.images || (source.image ? [source] : []);
+    return figures.map(function (fig) {
+      return '<figure class="etape-figure">' +
+        '<img src="' + escapeHtml(fig.image) + '" alt="' + escapeHtml(fig.alt || '') + '" loading="lazy">' +
+        '</figure>';
+    }).join('');
   }
 
   function renderPopupBouton(popup) {
@@ -52,7 +56,7 @@
     if (typeof etape === 'string') return '<li>' + escapeHtml(etape) + '</li>';
     return '<li>' + escapeHtml(etape.texte) +
       (etape.popup ? renderPopupBouton(etape.popup) : '') +
-      renderFigure(etape) +
+      renderFigures(etape) +
       '</li>';
   }
 
@@ -92,7 +96,7 @@
           '<div class="roles-wrap">' + rolesHtml + '</div>' +
           renderCommandes(s.commandes) +
           (s.pieges && s.pieges.length ? '<div class="info-block pieges-block"><h4>Pièges fréquents</h4><ul>' + renderList(s.pieges) + '</ul></div>' : '') +
-          (s.verification && s.verification.length ? '<div class="info-block verif-block"><h4>Ce qu\'on doit pouvoir vérifier</h4><ul>' + renderList(s.verification) + '</ul>' + renderFigure(s.verificationImage) + '</div>' : '') +
+          (s.verification && s.verification.length ? '<div class="info-block verif-block"><h4>Ce qu\'on doit pouvoir vérifier</h4><ul>' + renderList(s.verification) + '</ul>' + renderFigures(s.verificationImage) + '</div>' : '') +
         '</div>' +
       '</div>'
     );
