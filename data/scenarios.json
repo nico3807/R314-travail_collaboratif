@@ -370,7 +370,10 @@
           "Après le push de A, faire un pull et repérer l'information manquante dans 'journal.md' : le signaler à A à l'oral pour qu'iel fasse le revert.",
           "En parallèle, créer par erreur un fichier '.DS_Store' (ou un fichier 'notes-perso.tmp') à la racine et le committer par erreur avec le reste.",
           "Une fois l'erreur repérée (par soi-même ou par A en relisant les fichiers), créer un fichier '.gitignore' listant ce type de fichier.",
-          "Retirer le fichier du suivi Git sans le supprimer du disque : 'git rm --cached notes-perso.tmp', puis commit (\"Retire un fichier indésirable + ajoute .gitignore\"), push."
+          "Dans le terminal intégré, retirer le fichier du suivi Git sans le supprimer du disque : 'git rm --cached notes-perso.tmp'. L'option '--cached' est toute la subtilité : elle agit sur l'index de Git, pas sur le disque. Sans elle, 'git rm' supprimerait aussi le fichier.",
+          "Vérifier dans l'explorateur de VSCode que 'notes-perso.tmp' est toujours là : c'est bien le suivi qui a été retiré, pas le fichier. Git, lui, le considère désormais comme supprimé.",
+          "Dans le Contrôle de code source, deux modifications sont en attente : la suppression de 'notes-perso.tmp' et l'ajout de '.gitignore'. Les valider ensemble a du sens : sans le '.gitignore' de l'étape précédente, le fichier réapparaîtrait aussitôt en \"U\" (Untracked).",
+          "Stage les deux, commit (\"Retire un fichier indésirable + ajoute .gitignore\"), push. Contrôler ensuite avec 'git status' : l'arbre de travail est propre alors que le fichier est toujours sur le disque — c'est la preuve que le '.gitignore' fait effet."
         ]
       },
       "commandes": [
