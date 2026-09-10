@@ -1,5 +1,5 @@
 // Page scénarios : charge data/scenarios.json, affiche les fiches en
-// accordéon, gère le filtre de vue (Étudiant A / Étudiant B / Les deux)
+// accordéon, gère le filtre de vue (Théodora / PLK / Les deux)
 // et un suivi de progression en mémoire (non persisté entre deux visites,
 // volontairement : chaque séance repart d'un état propre).
 
@@ -73,8 +73,8 @@
     if (s.solo) {
       rolesHtml = '<div class="grid cols-2">' + renderRoleCol(s.commun, 'role-a', 'Chacun·e de son côté') + '</div>';
     } else {
-      var colA = renderRoleCol(s.roleA, 'role-a', 'Étudiant·e A');
-      var colB = renderRoleCol(s.roleB, 'role-b', 'Étudiant·e B');
+      var colA = renderRoleCol(s.roleA, 'role-a', 'Théodora');
+      var colB = renderRoleCol(s.roleB, 'role-b', 'PLK');
       rolesHtml = '<div class="grid cols-2" data-roles>' +
         (currentView !== 'b' ? colA : '') +
         (currentView !== 'a' ? colB : '') +

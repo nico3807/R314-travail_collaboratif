@@ -113,7 +113,7 @@
       "objectif": "Créer le dépôt GitHub partagé du binôme, s'ajouter mutuellement comme collaborateurs, cloner chacun de son côté, et obtenir un premier historique synchronisé.",
       "contexte": "C'est le dépôt qui servira à TOUS les scénarios suivants. Il doit s'appeler exactement depot-partage.",
       "roleA": {
-        "resume": "Étudiant·e A - crée le dépôt",
+        "resume": "crée le dépôt",
         "etapes": [
           {
             "texte": "Sur github.com, créer un nouveau dépôt PUBLIC ou PRIVÉ nommé exactement 'depot-partage' (ne pas cocher \"Add a README\" pour l'instant).",
@@ -121,7 +121,7 @@
             "alt": "Formulaire « Create a new repository » de GitHub : le nom depot-partage est saisi, la visibilité est sur Private et l'option Add README est désactivée"
           },
           {
-            "texte": "Si le dépôt est privé : une fois créé, cliquer sur Invite collaborators, puis Add people pour inviter l'étudiant·e B par son identifiant GitHub.",
+            "texte": "Si le dépôt est privé : une fois créé, cliquer sur Invite collaborators, puis Add people pour inviter PLK par son identifiant GitHub.",
             "images": [
               {
                 "image": "img/S1_2.png",
@@ -138,19 +138,19 @@
           "Créer un fichier 'journal.md' avec la ligne : '- [A] Premier commit du binôme.'",
           "Dans le panneau Source Control : écrire un message de commit clair, valider (✓), puis \"Push\" sélectionner le dépôt.",
           {
-            "texte": "Lorsque B a terminé ses modifications, synchroniser les changements.",
+            "texte": "Lorsque PLK a terminé ses modifications, synchroniser les changements.",
             "image": "img/S1_4.png",
             "alt": "Barre d'état de VSCode sur la branche main, avec l'infobulle « depot-partage (Git) - Synchroniser les changements »"
           }
         ]
       },
       "roleB": {
-        "resume": "Étudiant·e B - rejoint le dépôt",
+        "resume": "rejoint le dépôt",
         "etapes": [
           "Accepter l'invitation de collaboration reçue par email ou dans l'onglet Notifications de GitHub.",
-          "Dans VSCode : \"Git: Clone\". Cliquer sur 'Cloner à partir de GitHub', puis sélectionner la même URL de dépôt. Choisir alors un dossier local différent de celui de A (chacun a sa propre copie !).",
-          "Si le fichier 'journal.md' de A n'est pas encore visible : faire \"Pull\" depuis le panneau Source Control.",
-          "Vérifier que le contenu de 'journal.md' correspond exactement à ce que A a écrit.",
+          "Dans VSCode : \"Git: Clone\". Cliquer sur 'Cloner à partir de GitHub', puis sélectionner la même URL de dépôt. Choisir alors un dossier local différent de celui de Théodora (chacun a sa propre copie !).",
+          "Si le fichier 'journal.md' de Théodora n'est pas encore visible : faire \"Pull\" depuis le panneau Source Control.",
+          "Vérifier que le contenu de 'journal.md' correspond exactement à ce que Théodora a écrit.",
           "Ajouter une nouvelle ligne à la suite : '- [B] Bien reçu, à mon tour !'",
           "Stage, commit avec un message clair, Push."
         ]
@@ -180,21 +180,21 @@
       "titre": "Modifications parallèles, deux fichiers différents",
       "duree": "25 min",
       "objectif": "Comprendre ce qui se passe quand le binôme travaille en même temps sur des fichiers différents : pas de conflit, mais un pull est quand même nécessaire.",
-      "contexte": "A et B travaillent réellement en même temps, sans se concerter sur l'ordre des push.",
+      "contexte": "Théodora et PLK travaillent réellement en même temps, sans se concerter sur l'ordre des push.",
       "roleA": {
-        "resume": "Étudiant·e A",
+        "resume": "",
         "etapes": [
-          "Sans attendre B, créer un fichier 'page-a.md' avec un court texte.",
+          "Sans attendre PLK, créer un fichier 'page-a.md' avec un court texte.",
           "Stage, commit (\"Ajoute la page A\"), puis Push immédiatement.",
-          "Dire à B, à l'oral, que le push est passé : c'est ce push qui fait diverger les deux historiques, et donc tout l'intérêt de la suite."
+          "Dire à PLK, à l'oral, que le push est passé : c'est ce push qui fait diverger les deux historiques, et donc tout l'intérêt de la suite."
         ]
       },
       "roleB": {
-        "resume": "Étudiant·e B (en parallèle, sans pull préalable)",
+        "resume": "en parallèle, sans pull préalable",
         "etapes": [
-          "En même temps que A (ne pas attendre !), créer un fichier 'page-b.md' avec un court texte.",
+          "En même temps que Théodora (ne pas attendre !), créer un fichier 'page-b.md' avec un court texte.",
           "Stage, commit (\"Ajoute la page B\").",
-          "Attendre que A confirme que SON push est passé. Le rejet qu'on cherche à provoquer n'existe que si le commit de A est déjà sur GitHub : si B pousse en premier, son push passe sans rien dire et c'est A qui reçoit le rejet.",
+          "Attendre que Théodora confirme que SON push est passé. Le rejet qu'on cherche à provoquer n'existe que si le commit de Théodora est déjà sur GitHub : si PLK pousse en premier, son push passe sans rien dire et c'est Théodora qui reçoit le rejet.",
           "Ne pas cliquer sur le bouton bleu \"Synchroniser les changements\" : il enchaîne un pull PUIS un push en un seul clic, tout se passe alors sans la moindre erreur et il n'y a rien à observer. Passer par le menu ⋯ du panneau Contrôle de code source > \"Tirer, pousser\" > \"Pousser\" (Push).",
           "Cette fois le push est rejeté : VSCode affiche \"Can't push refs to remote. Try running 'Pull' first to integrate your changes.\" (dans un terminal, le message est \"Updates were rejected because the remote contains work that you do not have\"). Rien n'est cassé : Git refuse simplement d'écraser le commit de A.",
           "Faire \"Tirer\" (Pull) : Git fusionne automatiquement, sans conflit, puisque les deux fichiers modifiés sont différents. Le commit de fusion est créé silencieusement avec son message par défaut (\"Merge branch 'main' of ...\") : contrairement à la ligne de commande, VSCode n'ouvre aucun éditeur de message.",
@@ -211,12 +211,12 @@
       "pieges": [
         "Paniquer devant le message de rejet : ce n'est pas une erreur, c'est une protection normale.",
         "Utiliser \"Synchroniser les changements\" au lieu de \"Pousser\" : le rejet a bien lieu, mais VSCode le règle tout seul en faisant le pull avant le push. Tout marche, on ne voit rien... et on ne comprend pas ce que Git a fait à notre place. Au scénario 3, le même bouton ne pourra plus rien régler seul : le conflit apparaîtra.",
-        "Pousser avant son binôme : le premier arrivé passe toujours, c'est le second qui est rejeté. Si l'ordre s'inverse, il suffit d'échanger les rôles A et B.",
+        "Pousser avant son binôme : le premier arrivé passe toujours, c'est le second qui est rejeté. Si l'ordre s'inverse, il suffit d'échanger les rôles de Théodora et de PLK.",
         "Ne pas comprendre pourquoi un \"merge commit\" apparaît alors qu'il n'y a pas eu de conflit : c'est parce que l'historique a divergé, même sans collision de contenu."
       ],
       "verification": [
         "'git log --oneline --graph --all' fait apparaître une bifurcation qui se rejoint.",
-        "Les deux fichiers 'page-a.md' et 'page-b.md' sont présents chez A et chez B après un dernier pull côté A."
+        "Les deux fichiers 'page-a.md' et 'page-b.md' sont présents chez Théodora et chez PLK après un dernier pull côté Théodora."
       ]
     },
     {
@@ -224,21 +224,21 @@
       "titre": "Le conflit provoqué",
       "duree": "35 min",
       "objectif": "Provoquer volontairement un conflit sur la même ligne du même fichier, puis le résoudre avec l'éditeur de fusion à trois vues de VSCode.",
-      "contexte": "Cette fois, A et B modifient délibérément la même ligne du même fichier, sans se prévenir à l'avance. Le but est de vivre le conflit pour ne plus le craindre.",
+      "contexte": "Cette fois, Théodora et PLK modifient délibérément la même ligne du même fichier, sans se prévenir à l'avance. Le but est de vivre le conflit pour ne plus le craindre.",
       "roleB": {
-        "resume": "Étudiant·e B - modifie et pousse en premier",
+        "resume": "modifie et pousse en premier",
         "etapes": [
           "Ouvrir 'journal.md', remplacer la toute première ligne par : '# Journal du binôme (version B)'.",
           "Stage, commit (\"Renomme le titre - version B\"), Push (accepté, B est arrivé le premier).",
           {
-            "texte": "Après les modifications de l'étudiant·e A, synchroniser (pull) les changements pour visualiser le fichier modifié avec les 2 changements.",
+            "texte": "Après les modifications de Théodora, synchroniser (pull) les changements pour visualiser le fichier modifié avec les 2 changements.",
             "image": "img/S3_3.png",
             "alt": "Barre d'état de VSCode sur la branche main, avec l'infobulle « depot-partage (Git) - Synchroniser les changements »"
           }
         ]
       },
       "roleA": {
-        "resume": "Étudiant·e A - modifie la même ligne sans avoir pull",
+        "resume": "modifie la même ligne sans avoir pull",
         "etapes": [
           "Sans faire de pull au préalable, ouvrir 'journal.md' et remplacer la même première ligne par : '# Journal du binôme (version A)'.",
           "Stage, commit (\"Renomme le titre - version A\"), tenter un Push : rejeté.",
@@ -271,7 +271,7 @@
       "verification": [
         "Le fichier 'journal.md' final ne contient plus aucun marqueur de conflit.",
         "'git log --oneline --graph' affiche un commit de fusion avec deux parents.",
-        "A et B ont, après un dernier pull de chaque côté, exactement le même contenu."
+        "Théodora et PLK ont, après un dernier pull de chaque côté, exactement le même contenu."
       ]
     },
     {
@@ -281,7 +281,7 @@
       "objectif": "Isoler un travail dans une branche dédiée, la publier, ouvrir une Pull Request, faire une revue de code croisée avec au moins un commentaire, puis fusionner.",
       "contexte": "Le workflow le plus utilisé en entreprise : on ne travaille (presque) jamais directement sur 'main'.",
       "roleB": {
-        "resume": "Étudiant·e B - pilote la fonctionnalité",
+        "resume": "pilote la fonctionnalité",
         "etapes": [
           "Dans VSCode, en bas à gauche, cliquer sur le nom de la branche courante puis \"Créer une nouvelle branche\" : 'feature/mentions-legales'.",
           "Créer un fichier 'mentions.html' avec un contenu minimal (titre + une phrase).",
@@ -306,14 +306,14 @@
             ]
           },
           "Une vue de création s'affiche : vérifiez la branche de base (main) et la branche source (feature/mentions-legales), remplissez titre et description, puis validez.",
-          "Assigner A comme reviewer (\"Reviewers\" dans le panneau de droite de la PR)."
+          "Assigner Théodora comme reviewer (\"Reviewers\" dans le panneau de droite de la PR)."
         ]
       },
       "roleA": {
-        "resume": "Étudiant·e A - relit et challenge",
+        "resume": "relit et challenge",
         "etapes": [
           "Ouvrir la Pull Request (sur github.com ou dans l'onglet \"Pull Requests\" de VSCode).",
-          "Lire le \"diff\" (les lignes ajoutées/supprimées) proposé par B.",
+          "Lire le \"diff\" (les lignes ajoutées/supprimées) proposé par PLK.",
           "Laisser au moins un commentaire précis sur une ligne (ex : demander de corriger une formulation, ou d'ajouter une information manquante).",
           {
             "texte": "Soumettre la revue avec le statut \"Request changes\" (demande de modification).",
@@ -324,11 +324,11 @@
               },
               {
                 "image": "img/S4_2.png",
-                "alt": "La Pull Request « Ajoute la page mentions légales #1 » côté B : elle est Open et porte la mention « cocolas007-ui (collaborator) requested changes »"
+                "alt": "La Pull Request « Ajoute la page mentions légales #1 » côté PLK : elle est Open et porte la mention « cocolas007-ui (collaborator) requested changes »"
               }
             ]
           },
-          "Attendre la correction de B, puis relire le nouveau commit ajouté automatiquement à la PR, et si tout va bien : \"Approve\", puis \"Merge pull request\" (merge commit)."
+          "Attendre la correction de PLK, puis relire le nouveau commit ajouté automatiquement à la PR, et si tout va bien : \"Approve\", puis \"Merge pull request\" (merge commit)."
         ]
       },
       "commandes": [
@@ -345,7 +345,7 @@
       ],
       "verification": [
         "La Pull Request est marquée \"Merged\" sur GitHub.",
-        "'main' contient 'mentions.html' chez A ET chez B après un pull.",
+        "'main' contient 'mentions.html' chez Théodora ET chez PLK après un pull.",
         "Au moins un commentaire de revue est visible dans l'historique de la PR.",
         "La branche 'feature/mentions-legales' a été supprimée (localement et sur GitHub) une fois fusionnée."
       ]
@@ -357,11 +357,11 @@
       "objectif": "Savoir réagir à deux incidents fréquents : annuler proprement un commit déjà partagé, et retirer un fichier qui n'aurait jamais dû être versionné.",
       "contexte": "Deux mini-incidents à enchaîner rapidement, en fin de séance.",
       "roleA": {
-        "resume": "Étudiant·e A - provoque puis annule",
+        "resume": "provoque puis annule",
         "etapes": [
           "Modifier 'journal.md' en y supprimant une information importante par erreur (\"faute de frappe\" volontaire), commit, push.",
           {
-            "texte": "Une fois que B a repéré le problème (partie B ci-contre), récupérer l'identifiant du commit fautif : dans le Contrôle de code source, clic droit sur ce commit > \"Copier un code de hachage de validation\" (traduction de \"Copy Commit Hash\"). Le menu intégré de VSCode ne propose PAS de \"Revert Commit\" : c'est une fonction des extensions GitLens ou Git Graph. Attention aussi à \"Faire une sélection\", qui traduit \"Cherry Pick\" : elle rejoue le commit au lieu de l'annuler.",
+            "texte": "Une fois que PLK a repéré le problème (colonne de PLK ci-contre), récupérer l'identifiant du commit fautif : dans le Contrôle de code source, clic droit sur ce commit > \"Copier un code de hachage de validation\" (traduction de \"Copy Commit Hash\"). Le menu intégré de VSCode ne propose PAS de \"Revert Commit\" : c'est une fonction des extensions GitLens ou Git Graph. Attention aussi à \"Faire une sélection\", qui traduit \"Cherry Pick\" : elle rejoue le commit au lieu de l'annuler.",
             "image": "img/S5_1.png",
             "alt": "Menu contextuel d'un commit dans le Contrôle de code source de VSCode : il contient « Faire une sélection » et « Copier un code de hachage de validation », mais aucune entrée permettant d'annuler le commit"
           },
@@ -370,11 +370,11 @@
         ]
       },
       "roleB": {
-        "resume": "Étudiant·e B - repère l'erreur et versionne un fichier indésirable",
+        "resume": "repère l'erreur et versionne un fichier indésirable",
         "etapes": [
-          "Après le push de A, faire un pull et repérer l'information manquante dans 'journal.md' : le signaler à A à l'oral pour qu'iel fasse le revert.",
+          "Après le push de Théodora, faire un pull et repérer l'information manquante dans 'journal.md' : le signaler à Théodora à l'oral pour qu'elle fasse le revert.",
           "En parallèle, créer par erreur un fichier '.DS_Store' (ou un fichier 'notes-perso.tmp') à la racine et le committer par erreur avec le reste.",
-          "Une fois l'erreur repérée (par soi-même ou par A en relisant les fichiers), créer un fichier '.gitignore' listant ce type de fichier.",
+          "Une fois l'erreur repérée (par soi-même ou par Théodora en relisant les fichiers), créer un fichier '.gitignore' listant ce type de fichier.",
           "Dans le terminal intégré, retirer le fichier du suivi Git sans le supprimer du disque : 'git rm --cached notes-perso.tmp'. L'option '--cached' est toute la subtilité : elle agit sur l'index de Git, pas sur le disque. Sans elle, 'git rm' supprimerait aussi le fichier.",
           "Vérifier dans l'explorateur de VSCode que 'notes-perso.tmp' est toujours là : c'est bien le suivi qui a été retiré, pas le fichier. Git, lui, le considère désormais comme supprimé.",
           "Dans le Contrôle de code source, deux modifications sont en attente : la suppression de 'notes-perso.tmp' et l'ajout de '.gitignore'. Les valider ensemble a du sens : sans le '.gitignore' de l'étape précédente, le fichier réapparaîtrait aussitôt en \"U\" (Untracked).",
