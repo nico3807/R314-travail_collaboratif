@@ -4,19 +4,19 @@
       "id": 1,
       "titre": "Cloner et ouvrir le projet dans VS Code",
       "solo": true,
-      "objectif": "Récupérer sur son ordinateur une copie complète du dépôt Arcade, reliée à GitHub.",
-      "contexte": "Le dépôt existe déjà et il est commun à toutes les équipes : on ne le crée pas, on le clone.",
+      "objectif": "Récupérer sur son ordinateur une copie complète du dépôt Test_arcade, reliée à GitHub.",
+      "contexte": "Le dépôt existe déjà et il est commun à toutes les équipes : on ne le crée pas, on le clone. Son adresse : https://github.com/nico3807/Test_arcade",
       "commun": {
         "label": "À faire chacun·e sur son poste",
         "etapes": [
           "Lancer VS Code.",
           "Ouvrir la palette de commandes : Ctrl + Shift + P (Windows / Linux) ou Cmd + Shift + P (Mac).",
           "Taper 'Git: Clone' et appuyer sur Entrée.",
-          "Coller l'URL GitHub du dépôt (fournie par votre enseignant·e) et appuyer sur Entrée.",
+          "Coller l'URL du dépôt, https://github.com/nico3807/Test_arcade, et appuyer sur Entrée.",
           "Choisir un dossier sur votre ordinateur, puis cliquer sur « Ouvrir le dossier » (Open) quand VS Code le propose."
         ]
       },
-      "commandes": ["git clone <url>", "git status"],
+      "commandes": ["git clone https://github.com/nico3807/Test_arcade.git", "git status"],
       "pieges": [
         "Télécharger le projet en ZIP depuis GitHub au lieu de le cloner : le dossier obtenu n'est pas un dépôt Git, il sera impossible de committer ni de pousser quoi que ce soit.",
         "Cloner dans un dossier synchronisé (OneDrive, kDrive, Google Drive) : la synchronisation entre en conflit avec Git et corrompt régulièrement le dépôt."

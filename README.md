@@ -17,7 +17,7 @@ branches, Pull Request, incidents).
      `python3 -m http.server`).
 3. Commencer par la page **Prérequis**, puis suivre l'ordre du menu :
    Concepts → Scénarios → Mémo. La page **Préparation SAé** est indépendante
-   du TP : c'est la fiche consigne pour contribuer au projet Arcade.
+   du TP : c'est la fiche consigne pour contribuer au projet `Test_arcade`.
 
 ## Utiliser ce dépôt en tant qu'enseignant·e
 
@@ -40,7 +40,7 @@ R314-travail_collaboratif/
 ├── prerequis.html       Installation Git/GitHub/VSCode (à faire avant la séance)
 ├── concepts.html         Vocabulaire de base + schéma des 4 zones de Git
 ├── scenarios.html        Les 6 scénarios collaboratifs (interactif)
-├── sae.html              Fiche consigne SAé : contribuer au projet Arcade
+├── sae.html              Fiche consigne SAé : contribuer au dépôt Test_arcade
 ├── memo.html             Aide-mémoire commandes Git / VSCode
 ├── css/style.css         Feuille de style partagée
 ├── img/                  Captures d'écran illustrant les étapes
