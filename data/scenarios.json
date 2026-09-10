@@ -355,7 +355,12 @@
         "resume": "Étudiant·e A - provoque puis annule",
         "etapes": [
           "Modifier 'journal.md' en y supprimant une information importante par erreur (\"faute de frappe\" volontaire), commit, push.",
-          "Une fois que B a repéré le problème (partie B ci-contre), utiliser \"Source Control\" > clic droit sur le commit fautif dans l'historique > \"Revert Commit\" (ou 'git revert <hash>' en ligne de commande).",
+          {
+            "texte": "Une fois que B a repéré le problème (partie B ci-contre), récupérer l'identifiant du commit fautif : dans le Contrôle de code source, clic droit sur ce commit > \"Copier un code de hachage de validation\" (traduction de \"Copy Commit Hash\"). Le menu intégré de VSCode ne propose PAS de \"Revert Commit\" : c'est une fonction des extensions GitLens ou Git Graph. Attention aussi à \"Faire une sélection\", qui traduit \"Cherry Pick\" : elle rejoue le commit au lieu de l'annuler.",
+            "image": "img/S5_1.png",
+            "alt": "Menu contextuel d'un commit dans le Contrôle de code source de VSCode : il contient « Faire une sélection » et « Copier un code de hachage de validation », mais aucune entrée permettant d'annuler le commit"
+          },
+          "Dans le terminal intégré, taper 'git revert ' puis coller le hash. VSCode ouvre un message de commit pré-rempli (\"Revert ...\") : l'enregistrer et fermer l'onglet, le commit d'annulation est alors créé.",
           "Vérifier le contenu restauré, push."
         ]
       },
