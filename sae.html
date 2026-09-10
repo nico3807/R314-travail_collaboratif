@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scénarios - R3.13 Travail collaboratif</title>
+    <title>Préparation SAé - R3.13 Travail collaboratif</title>
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2230%27 cy=%2225%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2230%27 cy=%2275%27 r=%2212%27 fill=%27%232f5fd9%27/%3E%3Ccircle cx=%2270%27 cy=%2250%27 r=%2212%27 fill=%27%23b5560f%27/%3E%3Cpath d=%27M30 37 V63 M30 50 H58%27 stroke=%27%231c2333%27 stroke-width=%278%27 fill=%27none%27/%3E%3C/svg%3E"
     />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body data-page="scenarios">
+  <body data-page="sae">
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
     <header class="site-header">
@@ -31,44 +31,37 @@
     </header>
 
     <main id="contenu">
-      <p class="eyebrow">Cœur du TP</p>
-      <h1>Les six scénarios du binôme</h1>
+      <p class="eyebrow">Fiche consigne étudiant·e</p>
+      <h1>Contribuer à son jeu avec VS Code</h1>
       <p class="lede">
-        Travaillez dans le dépôt partagé <code>depot-partage</code>,
-        dans l'ordre indiqué. Cliquez sur une fiche pour l'ouvrir, cochez-la une
-        fois le scénario terminé et vérifié par les deux membres du binôme.
+        Bienvenue sur le projet <strong>Arcade</strong> ! Pour travailler
+        sereinement et ne pas risquer d'écraser le travail des autres équipes,
+        suivez pas à pas ce guide dans Visual Studio Code. Cliquez sur une
+        étape pour l'ouvrir, cochez-la une fois qu'elle est faite et vérifiée.
       </p>
 
-      <div class="callout warn">
-        <h4>Un ordinateur chacun, un seul dépôt</h4>
+      <div class="callout danger">
+        <h4>Les deux règles à ne jamais oublier</h4>
         <p>
-          Les deux étudiant·es doivent avoir cloné le
-          <strong>même</strong> dépôt GitHub, chacun·e dans un dossier local qui
-          lui est propre. On ne partage jamais un même dossier local entre deux
-          postes.
+          On ne travaille <strong>jamais</strong> sur la branche
+          <code>main</code>, et on ne modifie <strong>rien</strong> en dehors
+          du dossier de son propre jeu. Tout le reste de cette fiche découle de
+          ces deux règles.
         </p>
       </div>
 
       <div class="scenario-toolbar">
-        <strong style="font-size: 0.88rem">Vue :</strong>
-        <div class="role-toggle">
-          <button type="button" data-view="both" class="active">
-            Les deux rôles
-          </button>
-          <button type="button" data-view="a" class="role-a">
-            Théodora
-          </button>
-          <button type="button" data-view="b" class="role-b">
-            PLK
-          </button>
-        </div>
-        <span class="progress-text" id="progress-text"
-          >0 / 0 scénarios réalisés</span
-        >
+        <strong style="font-size: 0.88rem">Progression :</strong>
+        <span class="progress-text" id="progress-text">0 / 0 étapes réalisées</span>
       </div>
 
-      <div id="scenario-list" aria-live="polite">
-        <p class="lede">Chargement des scénarios…</p>
+      <div
+        id="scenario-list"
+        data-source="data/sae.json"
+        data-noun="étapes réalisées"
+        aria-live="polite"
+      >
+        <p class="lede">Chargement des étapes…</p>
       </div>
     </main>
 
@@ -82,8 +75,8 @@
     </div>
 
     <footer class="site-footer">
-      Ressource R3.13 - BUT MMI, IUT de Béziers · Dépôt
-      <code>depot-partage</code>
+      Ressource R3.13 - BUT MMI, IUT de Béziers · Projet
+      <code>Arcade</code>
     </footer>
 
     <script src="js/main.js"></script>
