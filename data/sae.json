@@ -2,39 +2,44 @@
   "scenarios": [
     {
       "id": 1,
-      "titre": "Cloner et ouvrir le projet dans VS Code",
+      "titre": "Rejoindre le dépôt privé et le cloner dans VS Code",
       "solo": true,
-      "objectif": "Récupérer sur son ordinateur une copie complète du dépôt Test_arcade, reliée à GitHub.",
-      "contexte": "Le dépôt existe déjà et il est commun à toutes les équipes : on ne le crée pas, on le clone. Son adresse : https://github.com/nico3807/Test_arcade",
+      "objectif": "Accepter l'invitation au dépôt Test_arcade, puis en récupérer sur son ordinateur une copie complète reliée à GitHub.",
+      "contexte": "Le dépôt existe déjà et il est partagé par toute la promotion : on ne le crée pas, on le rejoint puis on le clone. Comme il est privé, il reste totalement invisible tant que l'invitation n'a pas été acceptée. Son adresse : https://github.com/nico3807/Test_arcade",
       "commun": {
         "label": "À faire chacun·e sur son poste",
         "etapes": [
+          "Ouvrir la boîte mail rattachée à votre compte GitHub : une invitation « nico3807 has invited you to collaborate on nico3807/Test_arcade » vous y attend. Cliquer sur « Accept invitation ». L'invitation est aussi accessible en se connectant sur github.com, dans les notifications.",
           "Lancer VS Code.",
+          "Vérifier que VS Code est bien connecté à votre compte GitHub : icône de silhouette tout en bas à gauche > « Se connecter avec GitHub » (Sign in with GitHub). Sur un dépôt privé, sans cette connexion, le clone échoue.",
           "Ouvrir la palette de commandes : Ctrl + Shift + P (Windows / Linux) ou Cmd + Shift + P (Mac).",
           "Taper 'Git: Clone' et appuyer sur Entrée.",
           "Coller l'URL du dépôt, https://github.com/nico3807/Test_arcade, et appuyer sur Entrée.",
-          "Choisir un dossier sur votre ordinateur, puis cliquer sur « Ouvrir le dossier » (Open) quand VS Code le propose."
+          "Choisir un dossier sur votre ordinateur, puis cliquer sur « Ouvrir le dépôt » (Open repository) quand VS Code le propose."
         ]
       },
       "commandes": ["git clone https://github.com/nico3807/Test_arcade.git", "git status"],
       "pieges": [
+        "Cloner sans avoir accepté l'invitation : GitHub répond « repository not found ». Le message laisse croire à une faute de frappe dans l'adresse, alors qu'il s'agit d'un problème de droits.",
         "Télécharger le projet en ZIP depuis GitHub au lieu de le cloner : le dossier obtenu n'est pas un dépôt Git, il sera impossible de committer ni de pousser quoi que ce soit.",
         "Cloner dans un dossier synchronisé (OneDrive, kDrive, Google Drive) : la synchronisation entre en conflit avec Git et corrompt régulièrement le dépôt."
       ],
       "verification": [
         "La barre d'état, tout en bas à gauche de VS Code, affiche un nom de branche : le dossier ouvert est bien un dépôt Git.",
-        "Le dossier 'games/' est visible dans l'explorateur de fichiers."
+        "L'explorateur de fichiers montre le dossier 'games/', à côté de 'app/' et du fichier 'run.py'."
       ]
     },
     {
       "id": 2,
       "titre": "Créer la branche dédiée à votre groupe",
       "solo": true,
-      "objectif": "Isoler le travail de l'équipe dans sa propre branche, pour ne jamais écraser celui des autres.",
+      "objectif": "Isoler le travail de l'équipe dans sa propre branche, seule façon d'envoyer quoi que ce soit sur ce dépôt.",
       "alerte": {
         "titre": "Règle absolue",
         "items": [
-          "On ne travaille jamais directement sur la branche 'main'. Chaque équipe crée sa propre branche et n'y touche qu'à celle-là."
+          "On ne travaille jamais directement sur la branche 'main'. Ce n'est pas qu'une consigne : la branche est verrouillée sur GitHub, et un push direct y est refusé par le serveur, même si le commit est parfaitement correct.",
+          "Toute modification doit passer par une branche d'équipe, puis par une Pull Request (étape 5).",
+          "Une seule branche pour toute l'équipe, pas une par personne."
         ]
       },
       "commun": {
@@ -44,14 +49,15 @@
           "Le symbole d'une petite branche y est suivi du mot 'main'.",
           "Cliquer directement sur ce mot 'main'.",
           "Une barre s'ouvre tout en haut de l'écran : choisir « + Créer une nouvelle branche... » (Create new branch...).",
-          "Donner le nom de votre équipe (exemple : 'groupe-dragon-nest') et appuyer sur Entrée."
+          "Donner le nom de votre équipe (exemple : 'groupe-dragon-nest') et appuyer sur Entrée.",
+          "Se mettre d'accord dans l'équipe sur ce nom : c'est la même branche pour tout le monde. Les suivant·es la retrouveront dans la même liste, sans avoir à la recréer."
         ]
       },
       "commandes": ["git checkout -b groupe-dragon-nest", "git branch"],
       "pieges": [
         "Mettre des espaces, des accents ou des majuscules dans le nom de branche : préférer des minuscules et des tirets, comme 'groupe-dragon-nest'.",
         "Créer la branche alors qu'on n'était pas sur 'main' : la nouvelle branche part alors du travail de quelqu'un d'autre. Vérifier le nom affiché en bas à gauche AVANT de cliquer.",
-        "Créer une branche par personne au lieu d'une branche par équipe : tout le groupe travaille sur la même."
+        "Créer une branche par personne au lieu d'une branche par équipe : vous vous retrouveriez avec autant de Pull Requests que de membres, et du travail éparpillé."
       ],
       "verification": [
         "Tout en bas à gauche, c'est le nom de votre nouvelle branche qui s'affiche, et non plus 'main'."
@@ -59,15 +65,17 @@
     },
     {
       "id": 3,
-      "titre": "Travailler uniquement dans le dossier assigné",
+      "titre": "Travailler uniquement dans le dossier de jeu de votre équipe",
       "solo": true,
-      "objectif": "Limiter ses modifications à son propre jeu, pour que l'intégration finale se passe sans heurt.",
+      "objectif": "Limiter ses modifications à son propre jeu : c'est exactement ce que le robot de vérification contrôlera à l'étape 5.",
+      "contexte": "Le dossier autorisé pour votre compte n'est pas choisi par vous : votre enseignant a associé chaque pseudo GitHub à un dossier de jeu dans le fichier '.github/groupes.json'. C'est ce fichier que le robot consultera.",
       "alerte": {
         "titre": "Interdiction formelle de modifier",
         "items": [
-          "Le dossier 'app/'.",
+          "Le dossier 'app/' (le code de la borne).",
           "Le fichier 'run.py'.",
           "Le fichier 'scores.db'.",
+          "Le dossier '.github/' (la liste des groupes et le robot de vérification).",
           "Les dossiers des jeux des autres équipes."
         ]
       },
@@ -75,30 +83,34 @@
         "label": "À faire chacun·e sur son poste",
         "etapes": [
           "Sur le côté gauche, ouvrir l'explorateur de fichiers (icône des deux feuilles).",
-          "Déplier le dossier 'games/', puis ouvrir le dossier de votre groupe (exemple : 'games/Dragon_Nest/').",
-          "Modifier vos scripts ('index.js', 'game.json', images, sons) uniquement à l'intérieur de ce sous-dossier."
+          "Ouvrir '.github/groupes.json' et repérer le dossier écrit en face de votre pseudo GitHub : c'est le seul auquel vous avez droit. Le refermer sans rien y changer.",
+          "Déplier le dossier 'games/', puis ouvrir celui de votre groupe (exemple : 'games/Dragon_Nest/').",
+          "Modifier vos fichiers ('index.js', 'game.json', images, sons) uniquement à l'intérieur de ce sous-dossier."
         ]
       },
       "pieges": [
         "Ouvrir un fichier commun « juste pour voir » et l'enregistrer machinalement avec Ctrl+S : même sans avoir rien changé de visible, VS Code peut réécrire les fins de ligne et le fichier apparaît alors comme modifié.",
-        "Renommer ou déplacer le dossier de son jeu : pour Git, c'est une suppression suivie d'un ajout, et le test automatique le refusera."
+        "Renommer ou déplacer le dossier de son jeu : pour Git, c'est une suppression suivie d'un ajout hors de la zone autorisée, et le robot le refusera.",
+        "Corriger le jeu d'une autre équipe « pour l'aider » : même bien intentionnée, la modification fera passer votre Pull Request au rouge.",
+        "Ne pas se reconnaître dans '.github/groupes.json' (pseudo absent ou mal orthographié) : prévenez tout de suite votre enseignant, sinon aucune Pull Request de votre part ne pourra passer."
       ],
       "verification": [
-        "Dans le Contrôle de code source, tous les fichiers listés commencent par 'games/<votre-groupe>/'."
+        "Dans le Contrôle de code source, tous les fichiers listés commencent par 'games/<votre-groupe>/'.",
+        "Ce chemin est bien celui associé à votre pseudo dans '.github/groupes.json'."
       ]
     },
     {
       "id": 4,
       "titre": "Enregistrer ses modifications (commit) et les envoyer sur GitHub (push)",
       "solo": true,
-      "objectif": "Sauvegarder son travail dans l'historique du projet et le rendre visible par l'équipe enseignante.",
+      "objectif": "Sauvegarder son travail dans l'historique du projet et le rendre visible par l'équipe et par l'équipe enseignante.",
       "contexte": "À faire dès qu'une fonctionnalité est terminée, et dans tous les cas en fin de séance.",
       "commun": {
         "label": "À faire chacun·e sur son poste",
         "etapes": [
           "Cliquer sur l'icône Contrôle de code source dans la barre latérale gauche (trois ronds reliés par des lignes), ou faire Ctrl + Shift + G.",
-          "Dans la section « Changements » (Changes), survoler chaque fichier modifié de votre dossier et cliquer sur le petit bouton '+' (Stage Changes) pour le préparer.",
-          "Vérification visuelle : s'assurer qu'aucun fichier situé hors de votre dossier n'a été modifié par accident.",
+          "Dans la section « Changements » (Changes), survoler chaque fichier modifié de votre dossier et cliquer sur le petit bouton '+' (Stager les modifications) pour le préparer.",
+          "Vérification visuelle : s'assurer qu'aucun fichier situé hors de votre dossier n'a été modifié par accident. C'est ici que ça se rattrape le plus facilement.",
           "Dans la zone de texte au-dessus, marquée « Message », écrire ce que vous avez fait (exemple : 'Ajout du joueur et gestion des collisions').",
           "Cliquer sur le bouton bleu « Valider » (Commit).",
           "Cliquer ensuite sur « Publier la branche » (Publish Branch) la première fois, puis sur « Synchroniser les modifications » (Sync Changes) les fois suivantes. Vos modifications sont alors sur GitHub."
@@ -112,7 +124,8 @@
       "pieges": [
         "Valider sans avoir rien mis en attente : VS Code propose alors de committer TOUTES les modifications, y compris celles qu'on ne voulait pas.",
         "Écrire un message vague du type « modif » ou « test » : dans trois semaines, personne ne saura ce que contenait ce commit.",
-        "Committer sans jamais pousser : le travail reste sur votre machine et personne ne le voit. Un commit n'est pas un envoi."
+        "Committer sans jamais pousser : le travail reste sur votre machine et personne ne le voit. Un commit n'est pas un envoi.",
+        "Pousser alors qu'on est resté sur 'main' : GitHub refuse le push avec un message de protection de branche. Rien n'est perdu, il faut créer la branche d'équipe (étape 2) et recommencer le push."
       ],
       "verification": [
         "Sur GitHub, la branche de votre équipe apparaît dans la liste déroulante des branches et contient bien vos derniers fichiers.",
@@ -123,20 +136,53 @@
       "id": 5,
       "titre": "Proposer l'intégration de votre jeu (Pull Request)",
       "solo": true,
-      "objectif": "Demander la fusion de votre branche dans 'main' et faire valider automatiquement que vous n'avez touché qu'à votre jeu.",
+      "objectif": "Demander la fusion de votre branche dans 'main' et faire vérifier automatiquement que vous n'avez touché qu'à votre jeu.",
+      "contexte": "Une seule Pull Request par équipe : elle se met à jour toute seule à chaque nouveau push sur la branche.",
       "commun": {
         "label": "À faire une fois par équipe",
         "etapes": [
           "Se connecter sur le site GitHub et se rendre sur la page du dépôt.",
           "Une bannière jaune apparaît en haut : « [votre-branche] had recent pushes... », avec un bouton vert. Cliquer sur « Compare & pull request ».",
-          "Donner un titre simple (exemple : « Rendu Équipe Dragon Nest ») puis cliquer sur le bouton vert « Create pull request ».",
-          "Observer le robot d'analyse automatique : un rond orange apparaît pendant quelques secondes, le temps que le test 'verifier-acces' s'exécute.",
+          "Vérifier que la branche de base (à gauche de la flèche) est bien 'main', et que celle de comparaison est bien celle de votre équipe.",
+          "Donner un titre simple (exemple : « Intégration Jeu Dragon Nest - Groupe 1 ») puis cliquer sur le bouton vert « Create pull request ».",
+          {
+            "texte": "Descendre en bas de la page et observer l'analyse automatique : le test 'verifier-acces' s'exécute pendant quelques secondes.",
+            "popup": {
+              "bouton": "Comprendre le robot 'verifier-acces'",
+              "titre": "Le robot 'verifier-acces'",
+              "intro": "À l'ouverture de la Pull Request, GitHub lance automatiquement un petit programme. Il regarde qui a ouvert la demande, cherche le dossier associé à ce pseudo dans '.github/groupes.json', puis compare toute votre branche à 'main' pour lister les fichiers modifiés. Si l'un d'eux sort du dossier autorisé, il bloque.",
+              "tableau": {
+                "entetes": ["État du test", "Ce que ça veut dire", "Ce qu'on fait"],
+                "lignes": [
+                  [
+                    "Rond orange",
+                    "Le robot est en train de tourner.",
+                    "Attendre quelques secondes, la page se met à jour toute seule."
+                  ],
+                  [
+                    "Coche verte",
+                    "Toutes vos modifications sont bien contenues dans le dossier de votre équipe.",
+                    "Rien de plus : vos enseignant·es pourront fusionner votre jeu."
+                  ],
+                  [
+                    "Croix rouge",
+                    "Un fichier hors de votre dossier a été modifié, ou votre pseudo n'est associé à aucun groupe.",
+                    "Cliquer sur « Details » : le robot affiche la liste des fichiers en cause, précédés d'une croix."
+                  ]
+                ]
+              },
+              "conclusion": "Tant que le test n'est pas au vert, le bouton de fusion reste bloqué : la correction n'est pas facultative. Il n'y a pas besoin de refermer la Pull Request, un nouveau push la met à jour et relance le robot."
+            }
+          },
           "Test au VERT : vous n'avez touché qu'à votre dossier de jeu. Vos enseignant·es pourront valider et intégrer votre jeu.",
-          "Test au ROUGE : cliquer sur « Details ». Le robot indique quel fichier non autorisé a été modifié par erreur. Corriger dans VS Code, puis refaire un commit et un push."
+          "Test au ROUGE : cliquer sur « Details ». Le robot indique quel fichier non autorisé a été modifié. Le remettre dans son état d'origine dans VS Code (clic droit sur le fichier dans le Contrôle de code source > « Annuler les modifications »), puis refaire un commit et un push."
         ]
       },
+      "commandes": ["git checkout origin/main -- <fichier-a-restaurer>"],
       "pieges": [
         "Refermer la Pull Request et en ouvrir une nouvelle après une correction : inutile. Un nouveau push sur la même branche met la Pull Request à jour tout seul et relance le test.",
+        "Croire qu'il suffit d'un nouveau commit pour effacer une erreur : le robot compare votre branche ENTIÈRE à 'main', pas votre dernier commit. Un fichier interdit reste signalé tant qu'il n'est pas revenu à son contenu d'origine.",
+        "Ouvrir la Pull Request depuis le compte d'un·e camarade absent·e de '.github/groupes.json' : le robot juge l'auteur de la demande, pas l'auteur des commits. Le test passe alors au rouge avec « n'est assigné à aucun groupe ».",
         "Ouvrir la Pull Request contre la mauvaise branche de base : la cible doit être 'main'.",
         "Croire que le test au vert vaut validation du jeu : il vérifie seulement que vous n'avez pas touché aux fichiers communs, pas que votre jeu fonctionne."
       ],
