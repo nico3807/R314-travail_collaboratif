@@ -185,7 +185,8 @@
         "resume": "Étudiant·e A",
         "etapes": [
           "Sans attendre B, créer un fichier 'page-a.md' avec un court texte.",
-          "Stage, commit (\"Ajoute la page A\"), puis Push immédiatement."
+          "Stage, commit (\"Ajoute la page A\"), puis Push immédiatement.",
+          "Dire à B, à l'oral, que le push est passé : c'est ce push qui fait diverger les deux historiques, et donc tout l'intérêt de la suite."
         ]
       },
       "roleB": {
@@ -193,9 +194,11 @@
         "etapes": [
           "En même temps que A (ne pas attendre !), créer un fichier 'page-b.md' avec un court texte.",
           "Stage, commit (\"Ajoute la page B\").",
-          "Tenter un Push : VSCode annonce que le push est rejeté (\"Updates were rejected because the remote contains work that you do not have\").",
-          "Faire \"Pull\" : Git fusionne automatiquement (aucun conflit, les fichiers sont différents). Un éditeur de message de commit de fusion peut s'ouvrir : valider tel quel.",
-          "Relancer \"Push\" : il passe cette fois."
+          "Attendre que A confirme que SON push est passé. Le rejet qu'on cherche à provoquer n'existe que si le commit de A est déjà sur GitHub : si B pousse en premier, son push passe sans rien dire et c'est A qui reçoit le rejet.",
+          "Ne pas cliquer sur le bouton bleu \"Synchroniser les changements\" : il enchaîne un pull PUIS un push en un seul clic, tout se passe alors sans la moindre erreur et il n'y a rien à observer. Passer par le menu ⋯ du panneau Contrôle de code source > \"Tirer, pousser\" > \"Pousser\" (Push).",
+          "Cette fois le push est rejeté : VSCode affiche \"Can't push refs to remote. Try running 'Pull' first to integrate your changes.\" (dans un terminal, le message est \"Updates were rejected because the remote contains work that you do not have\"). Rien n'est cassé : Git refuse simplement d'écraser le commit de A.",
+          "Faire \"Tirer\" (Pull) : Git fusionne automatiquement, sans conflit, puisque les deux fichiers modifiés sont différents. Le commit de fusion est créé silencieusement avec son message par défaut (\"Merge branch 'main' of ...\") : contrairement à la ligne de commande, VSCode n'ouvre aucun éditeur de message.",
+          "Relancer \"Pousser\" : il passe cette fois. Vérifier avec 'git log --oneline --graph' que le commit de fusion créé à l'étape précédente est bien là."
         ]
       },
       "commandes": [
@@ -207,6 +210,8 @@
       ],
       "pieges": [
         "Paniquer devant le message de rejet : ce n'est pas une erreur, c'est une protection normale.",
+        "Utiliser \"Synchroniser les changements\" au lieu de \"Pousser\" : le rejet a bien lieu, mais VSCode le règle tout seul en faisant le pull avant le push. Tout marche, on ne voit rien... et on ne comprend pas ce que Git a fait à notre place. Au scénario 3, le même bouton ne pourra plus rien régler seul : le conflit apparaîtra.",
+        "Pousser avant son binôme : le premier arrivé passe toujours, c'est le second qui est rejeté. Si l'ordre s'inverse, il suffit d'échanger les rôles A et B.",
         "Ne pas comprendre pourquoi un \"merge commit\" apparaît alors qu'il n'y a pas eu de conflit : c'est parce que l'historique a divergé, même sans collision de contenu."
       ],
       "verification": [
