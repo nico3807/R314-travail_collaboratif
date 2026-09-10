@@ -2,7 +2,7 @@
 // (non persisté entre deux visites, volontairement : chaque séance repart
 // d'un état propre). Le fichier de données et le libellé du compteur sont
 // lus sur le conteneur, ce qui permet de servir aussi bien la page
-// Scénarios (deux rôles, filtre de vue) que la page Préparation SAé
+// Scénarios (deux rôles, filtre de vue) que la page Préparation SAÉ
 // (fiches solo). Le filtre de rôle ne s'active que si la barre existe.
 
 (function () {
