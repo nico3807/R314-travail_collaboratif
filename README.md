@@ -1,9 +1,9 @@
 # R314-travail_collaboratif
 
-TP interactif (BUT MMI2 — Ressource R3.13) sur le travail collaboratif et le
-versionnement : configuration complète de Git/GitHub avec VSCode pour un
-binôme, à travers six scénarios progressifs (synchronisation, conflit,
-branches, Pull Request, incidents).
+TP interactif (BUT MMI2 — R3.14 Déploiement de service) sur le travail
+collaboratif et le versionnement : configuration complète de Git/GitHub avec
+VSCode pour un binôme, à travers six scénarios progressifs (synchronisation,
+conflit, branches, Pull Request, incidents).
 
 ## Utiliser ce TP en tant qu'étudiant·e
 
