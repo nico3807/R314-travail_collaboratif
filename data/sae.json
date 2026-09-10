@@ -74,7 +74,6 @@
         "items": [
           "Le dossier 'app/' (le code de la borne).",
           "Le fichier 'run.py'.",
-          "Le fichier 'scores.db'.",
           "Le dossier '.github/' (la liste des groupes et le robot de vérification).",
           "Les dossiers des jeux des autres équipes."
         ]
