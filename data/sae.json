@@ -49,13 +49,13 @@
           "Le symbole d'une petite branche y est suivi du mot 'main'.",
           "Cliquer directement sur ce mot 'main'.",
           "Une barre s'ouvre tout en haut de l'écran : choisir « + Créer une nouvelle branche... » (Create new branch...).",
-          "Donner le nom de votre équipe (exemple : 'groupe-dragon-nest') et appuyer sur Entrée.",
-          "Se mettre d'accord dans l'équipe sur ce nom : c'est la même branche pour tout le monde. Les suivant·es la retrouveront dans la même liste, sans avoir à la recréer."
+          "Donner à la branche le nom exact de votre groupe, celui de votre dossier de jeu (exemple : 'TPA1_groupe1'), et appuyer sur Entrée.",
+          "C'est la même branche pour toute l'équipe : les suivant·es la retrouveront dans cette même liste, sans avoir à la recréer."
         ]
       },
-      "commandes": ["git checkout -b groupe-dragon-nest", "git branch"],
+      "commandes": ["git checkout -b TPA1_groupe1", "git branch"],
       "pieges": [
-        "Mettre des espaces, des accents ou des majuscules dans le nom de branche : préférer des minuscules et des tirets, comme 'groupe-dragon-nest'.",
+        "Inventer un nom de branche : reprendre à l'identique celui du dossier de votre groupe, sans espace ni accent. Une branche 'jeu', 'test' ou 'ma-branche' rend le suivi impossible côté enseignant, avec vingt équipes sur le même dépôt.",
         "Créer la branche alors qu'on n'était pas sur 'main' : la nouvelle branche part alors du travail de quelqu'un d'autre. Vérifier le nom affiché en bas à gauche AVANT de cliquer.",
         "Créer une branche par personne au lieu d'une branche par équipe : vous vous retrouveriez avec autant de Pull Requests que de membres, et du travail éparpillé."
       ],
@@ -83,7 +83,7 @@
         "etapes": [
           "Sur le côté gauche, ouvrir l'explorateur de fichiers (icône des deux feuilles).",
           "Ouvrir '.github/groupes.json' et repérer le dossier écrit en face de votre pseudo GitHub : c'est le seul auquel vous avez droit. Le refermer sans rien y changer.",
-          "Déplier le dossier 'games/', puis ouvrir celui de votre groupe (exemple : 'games/Dragon_Nest/').",
+          "Déplier le dossier 'games/', puis ouvrir celui de votre groupe (exemple : 'games/TPA1_groupe1/').",
           "Modifier vos fichiers ('index.js', 'game.json', images, sons) uniquement à l'intérieur de ce sous-dossier."
         ]
       },
@@ -143,7 +143,7 @@
           "Se connecter sur le site GitHub et se rendre sur la page du dépôt.",
           "Une bannière jaune apparaît en haut : « [votre-branche] had recent pushes... », avec un bouton vert. Cliquer sur « Compare & pull request ».",
           "Vérifier que la branche de base (à gauche de la flèche) est bien 'main', et que celle de comparaison est bien celle de votre équipe.",
-          "Donner un titre simple (exemple : « Intégration Jeu Dragon Nest - Groupe 1 ») puis cliquer sur le bouton vert « Create pull request ».",
+          "Donner un titre simple reprenant le nom du groupe (exemple : « Intégration du jeu - TPA1_groupe1 ») puis cliquer sur le bouton vert « Create pull request ».",
           {
             "texte": "Descendre en bas de la page et observer l'analyse automatique : le test 'verifier-acces' s'exécute pendant quelques secondes.",
             "popup": {
