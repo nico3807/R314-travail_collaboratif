@@ -46,8 +46,78 @@
       </figure>
 
       <h2>Vocabulaire essentiel</h2>
-      <div class="grid cols-2">
-        <div class="card">
+
+      <figure class="vocab" id="vocabulaire">
+        <img
+          src="img/vocabulaire.png"
+          alt="Huit vignettes de vocabulaire Git : dépôt, commit, remote, clone, branche, fusion et conflit, Pull Request, .gitignore."
+        />
+        <div class="vocab-zones">
+          <button
+            type="button"
+            class="vocab-zone"
+            data-fiche="vocab-depot"
+            aria-label="Lire la définition : dépôt"
+            style="left: 0.9%; top: 13.8%; width: 22.2%; height: 37.3%"
+          ></button>
+          <button
+            type="button"
+            class="vocab-zone"
+            data-fiche="vocab-commit"
+            aria-label="Lire la définition : commit"
+            style="left: 26.1%; top: 15.7%; width: 22.2%; height: 37.3%"
+          ></button>
+          <button
+            type="button"
+            class="vocab-zone"
+            data-fiche="vocab-remote"
+            aria-label="Lire la définition : remote"
+            style="left: 51.3%; top: 13.8%; width: 22.2%; height: 34.7%"
+          ></button>
+          <button
+            type="button"
+            class="vocab-zone"
+            data-fiche="vocab-clone"
+            aria-label="Lire la définition : clone"
+            style="left: 76.4%; top: 15.7%; width: 22.3%; height: 34.7%"
+          ></button>
+          <button
+            type="button"
+            class="vocab-zone"
+            data-fiche="vocab-branche"
+            aria-label="Lire la définition : branche"
+            style="left: 0.9%; top: 55%; width: 22.2%; height: 32.2%"
+          ></button>
+          <button
+            type="button"
+            class="vocab-zone"
+            data-fiche="vocab-fusion"
+            aria-label="Lire la définition : fusion et conflit"
+            style="left: 26.1%; top: 56.9%; width: 22.2%; height: 41%"
+          ></button>
+          <button
+            type="button"
+            class="vocab-zone"
+            data-fiche="vocab-pr"
+            aria-label="Lire la définition : Pull Request"
+            style="left: 51.3%; top: 52.4%; width: 22.2%; height: 37.3%"
+          ></button>
+          <button
+            type="button"
+            class="vocab-zone"
+            data-fiche="vocab-gitignore"
+            aria-label="Lire la définition : .gitignore"
+            style="left: 76.4%; top: 54.4%; width: 22.3%; height: 32.1%"
+          ></button>
+        </div>
+      </figure>
+
+      <p class="vocab-aide" id="vocab-aide" hidden>
+        Cliquez sur une vignette pour en lire la définition.
+      </p>
+
+      <div class="grid cols-2" id="vocab-fiches">
+        <div class="card" id="vocab-depot">
           <h3>Dépôt (repository)</h3>
           <p>
             Un dossier suivi par Git, qui garde la trace de tous les états
@@ -56,7 +126,7 @@
             permet de le partager.
           </p>
         </div>
-        <div class="card">
+        <div class="card" id="vocab-commit">
           <h3>Commit</h3>
           <p>
             Une photographie du projet à un instant donné, accompagnée d'un
@@ -64,7 +134,7 @@
             s'ajoute à l'historique.
           </p>
         </div>
-        <div class="card">
+        <div class="card" id="vocab-remote">
           <h3>Remote</h3>
           <p>
             Le nom donné à l'adresse d'un dépôt distant, par défaut
@@ -73,7 +143,7 @@
             (<code>pull</code>).
           </p>
         </div>
-        <div class="card">
+        <div class="card" id="vocab-clone">
           <h3>Clone</h3>
           <p>
             Créer une copie locale complète d'un dépôt distant, avec tout son
@@ -81,7 +151,7 @@
             <strong>même</strong> dépôt, chacun dans son propre dossier.
           </p>
         </div>
-        <div class="card">
+        <div class="card" id="vocab-branche">
           <h3>Branche</h3>
           <p>
             Une ligne de développement indépendante. La branche
@@ -90,7 +160,7 @@
             cours avant de le proposer à la relecture.
           </p>
         </div>
-        <div class="card">
+        <div class="card" id="vocab-fusion">
           <h3>Fusion (merge) &amp; conflit</h3>
           <p>
             Fusionner, c'est recombiner deux historiques qui ont divergé. Quand
@@ -99,7 +169,7 @@
             <strong>conflit</strong>, à résoudre manuellement.
           </p>
         </div>
-        <div class="card">
+        <div class="card" id="vocab-pr">
           <h3>Pull Request (PR)</h3>
           <p>
             Une proposition d'intégrer une branche dans une autre (souvent vers
@@ -107,7 +177,7 @@
             relecture de code avant la fusion.
           </p>
         </div>
-        <div class="card">
+        <div class="card" id="vocab-gitignore">
           <h3>.gitignore</h3>
           <p>
             Un fichier qui liste les fichiers et dossiers que Git doit ignorer
@@ -132,11 +202,21 @@
       </div>
     </main>
 
+    <div class="modal-overlay" id="modal" hidden>
+      <div class="modal" role="dialog" aria-modal="true">
+        <button type="button" class="modal-close" aria-label="Fermer">
+          &times;
+        </button>
+        <div id="modal-contenu"></div>
+      </div>
+    </div>
+
     <footer class="site-footer">
       R3.14 Déploiement de service - BUT MMI · Dépôt
       <code>depot-partage</code>
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/vocabulaire.js"></script>
   </body>
 </html>

@@ -722,6 +722,54 @@ th {
 .diagram {
   margin: 1.5rem 0;
 }
+
+/* Illustration du vocabulaire : huit zones cliquables posees par-dessus.
+   Les pourcentages de chaque zone sont dans le HTML, mesures sur les bords
+   des vignettes de l'image ; ils suivent donc l'image quand elle se
+   redimensionne. */
+.vocab {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: 1.5rem auto 0;
+}
+.vocab img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+.vocab-zones {
+  position: absolute;
+  inset: 0;
+}
+.vocab-zone {
+  position: absolute;
+  padding: 0;
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.12s, border-color 0.12s;
+}
+.vocab-zone:hover,
+.vocab-zone:focus-visible {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #fff;
+  outline: none;
+}
+/* 'display: grid' l'emporterait sinon sur le 'display: none' que le
+   navigateur associe a l'attribut hidden. */
+.grid[hidden] {
+  display: none;
+}
+.vocab-aide {
+  max-width: 720px;
+  margin: 0.6rem auto 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
 .diagram img {
   display: block;
   width: 100%;
