@@ -1,0 +1,71 @@
+name: Inscription des etudiants
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+jobs:
+  valider:
+    if: contains(github.event.issue.labels.*.name, 'inscription')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lire le groupe declare et repondre
+        env:
+          # Le corps de l'issue est ecrit par n'importe qui sur Internet : il ne
+          # doit JAMAIS etre interpole directement dans le script shell. On le
+          # fait transiter par une variable d'environnement.
+          CORPS: ${{ github.event.issue.body }}
+          AUTEUR: ${{ github.event.issue.user.login }}
+          NUMERO: ${{ github.event.issue.number }}
+          GH_TOKEN: ${{ github.token }}
+          DEPOT: ${{ github.repository }}
+        run: |
+          python - << 'EOF' > reponse.md
+          import os, re, sys
+
+          groupes = ([f"TPA1_groupe{i}" for i in range(1, 7)]
+                     + [f"TPA2_groupe{i}" for i in range(1, 7)]
+                     + [f"TPB1_groupe{i}" for i in range(1, 9)])
+
+          corps = os.environ.get("CORPS", "")
+          auteur = os.environ.get("AUTEUR", "")
+
+          # Le formulaire rend chaque reponse sous la forme :
+          #   ### Votre groupe
+          #
+          #   TPA1_groupe1
+          bloc = re.search(r"###\s*Votre groupe\s*\n+(.+?)(?:\n###|\Z)", corps, re.S)
+          declare = bloc.group(1).strip().splitlines()[0].strip() if bloc else ""
+
+          if declare not in groupes:
+              print(f"@{auteur} : impossible de lire votre groupe.")
+              print()
+              print(f"La valeur trouvee est `{declare or '(vide)'}`, qui ne correspond a")
+              print("aucun groupe connu. Cela arrive quand la demande a ete ecrite a la")
+              print("main au lieu de passer par le formulaire.")
+              print()
+              print(f"**Fermez cette demande et recommencez** depuis [le formulaire]"
+                    f"(https://github.com/{os.environ['DEPOT']}/issues/new?template=inscription.yml),")
+              print("en choisissant votre groupe dans la liste deroulante.")
+              open("statut.txt", "w", encoding="utf-8").write("non")
+              sys.exit(0)
+
+          print(f"Inscription enregistree : **@{auteur}** rejoint **{declare}**.")
+          print()
+          print("Il n'y a plus rien a faire de votre cote pour l'instant. Vous recevrez")
+          print("par courriel une invitation a rejoindre le depot prive `Test_arcade` ;")
+          print("acceptez-la, puis reprenez la fiche Preparation SAE a l'etape 2.")
+          print()
+          print("> Vous vous etes trompe de groupe ? Ouvrez une seconde demande :")
+          print("> c'est toujours la plus recente qui fait foi.")
+          open("statut.txt", "w", encoding="utf-8").write("oui")
+          EOF
+
+          gh issue comment "$NUMERO" --repo "$DEPOT" --body-file reponse.md
+
+          if [ "$(cat statut.txt)" = "oui" ]; then
+            gh issue close "$NUMERO" --repo "$DEPOT"
+          fi

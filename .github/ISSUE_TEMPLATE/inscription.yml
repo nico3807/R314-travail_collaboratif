@@ -1,0 +1,68 @@
+name: Inscription au projet Test_arcade
+description: Déclarez votre groupe de TP pour recevoir l'accès au dépôt du jeu.
+title: "Inscription"
+labels: ["inscription"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Avant de commencer
+
+        Cette demande sert à vous donner accès au dépôt privé **Test_arcade**,
+        celui qui contient la borne d'arcade et le dossier de votre équipe.
+
+        **Vous n'avez pas à saisir votre pseudo GitHub** : c'est celui du compte
+        avec lequel vous êtes connecté·e en ce moment, GitHub nous le transmet
+        automatiquement. Vérifiez simplement, en haut à droite de cette page,
+        que c'est bien **votre** compte et pas celui d'un·e camarade.
+
+        Il vous reste donc une seule chose à indiquer : votre groupe.
+  - type: dropdown
+    id: groupe
+    attributes:
+      label: Votre groupe
+      description: >-
+        Celui qui vous a été attribué en cours. En cas de doute, demandez à
+        votre enseignant·e plutôt que de deviner : c'est ce choix qui décide
+        du dossier dans lequel vous aurez le droit d'écrire.
+      options:
+        - TPA1_groupe1
+        - TPA1_groupe2
+        - TPA1_groupe3
+        - TPA1_groupe4
+        - TPA1_groupe5
+        - TPA1_groupe6
+        - TPA2_groupe1
+        - TPA2_groupe2
+        - TPA2_groupe3
+        - TPA2_groupe4
+        - TPA2_groupe5
+        - TPA2_groupe6
+        - TPB1_groupe1
+        - TPB1_groupe2
+        - TPB1_groupe3
+        - TPB1_groupe4
+        - TPB1_groupe5
+        - TPB1_groupe6
+        - TPB1_groupe7
+        - TPB1_groupe8
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: >-
+            Je confirme que ce compte GitHub est bien le mien et que je
+            l'utiliserai pendant toute la SAÉ.
+          required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+
+        Après validation, un message de confirmation s'affichera ici et cette
+        demande se fermera toute seule. **Vous vous êtes trompé·e de groupe ?**
+        Ouvrez simplement une seconde demande : c'est la plus récente qui
+        compte. L'invitation au dépôt privé arrivera ensuite par courriel.
