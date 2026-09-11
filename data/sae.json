@@ -155,12 +155,12 @@
     },
     {
       "id": 5,
-      "titre": "Proposer l'intégration de votre jeu (Pull Request)",
-      "solo": true,
-      "objectif": "Demander la fusion de votre branche dans 'main' et faire vérifier automatiquement que vous n'avez touché qu'à votre jeu.",
-      "contexte": "Une seule Pull Request par équipe : elle se met à jour toute seule à chaque nouveau push sur la branche.",
-      "commun": {
-        "label": "À faire une fois par équipe",
+      "titre": "Faire relire et intégrer votre jeu (Pull Request)",
+      "objectif": "Faire vérifier automatiquement que vous n'avez touché qu'à votre jeu, le faire relire par votre coéquipier·ère, puis l'intégrer vous-mêmes dans 'main'.",
+      "contexte": "Une seule Pull Request par équipe : elle se met à jour toute seule à chaque nouveau push sur la branche. Deux conditions doivent être réunies pour fusionner — le test au vert, et l'approbation d'une autre personne que l'auteur·rice de la demande. C'est donc un travail à deux, et vous n'avez besoin de personne d'autre.",
+      "roleA": {
+        "label": "Celui ou celle qui ouvre la demande",
+        "resume": "crée la Pull Request",
         "etapes": [
           "Se connecter sur le site GitHub et se rendre sur la page du dépôt.",
           "Une bannière jaune apparaît en haut : « [votre-branche] had recent pushes... », avec un bouton vert. Cliquer sur « Compare & pull request ».",
@@ -183,7 +183,7 @@
                   [
                     "Coche verte",
                     "Toutes vos modifications sont bien contenues dans le dossier de votre équipe.",
-                    "Rien de plus : vos enseignant·es pourront fusionner votre jeu."
+                    "Prévenir votre coéquipier·ère : c'est à lui ou elle de relire, d'approuver, puis de fusionner."
                   ],
                   [
                     "Croix rouge",
@@ -192,11 +192,23 @@
                   ]
                 ]
               },
-              "conclusion": "Tant que le test n'est pas au vert, le bouton de fusion reste bloqué : la correction n'est pas facultative. Il n'y a pas besoin de refermer la Pull Request, un nouveau push la met à jour et relance le robot."
+              "conclusion": "Le robot n'est que la première des deux conditions. Tant qu'il n'est pas au vert, le bouton de fusion reste bloqué : la correction n'est pas facultative. Et même au vert, le bouton affiche « Review required » jusqu'à ce qu'un autre membre de l'équipe ait approuvé. Il n'y a pas besoin de refermer la Pull Request : un nouveau push la met à jour et relance le robot."
             }
           },
-          "Test au VERT : vous n'avez touché qu'à votre dossier de jeu. Vos enseignant·es pourront valider et intégrer votre jeu.",
-          "Test au ROUGE : cliquer sur « Details ». Le robot indique quel fichier non autorisé a été modifié. Le remettre dans son état d'origine dans VS Code (clic droit sur le fichier dans le Contrôle de code source > « Annuler les modifications »), puis refaire un commit et un push."
+          "Test au ROUGE : cliquer sur « Details ». Le robot indique quel fichier non autorisé a été modifié. Le remettre dans son état d'origine dans VS Code (clic droit sur le fichier dans le Contrôle de code source > « Annuler les modifications »), puis refaire un commit et un push.",
+          "Test au VERT : prévenir votre coéquipier·ère qu'il ou elle peut relire. Vous ne pouvez pas approuver votre propre demande : GitHub l'interdit, et le bouton de fusion affiche « Review required » tant que personne ne l'a fait."
+        ]
+      },
+      "roleB": {
+        "label": "L'autre membre de l'équipe",
+        "resume": "relit, approuve et fusionne",
+        "etapes": [
+          "Sur GitHub, ouvrir l'onglet « Pull requests » du dépôt et cliquer sur la demande de votre équipe.",
+          "Cliquer sur l'onglet « Files changed » : GitHub affiche toutes les modifications, les ajouts en vert et les suppressions en rouge.",
+          "Relire pour de vrai. Survoler une ligne fait apparaître un '+' bleu : il permet de laisser un commentaire précis sur ce qui vous semble douteux.",
+          "En haut à droite, cliquer sur « Review changes », choisir « Approve », puis « Submit review ».",
+          "Le bouton vert « Merge pull request » se débloque. Cliquer dessus, puis sur « Confirm merge » : le jeu de votre équipe rejoint la branche 'main'.",
+          "GitHub propose ensuite « Delete branch ». Ne pas le faire si votre équipe compte encore travailler sur son jeu : vous auriez à recréer la branche."
         ]
       },
       "commandes": ["git checkout origin/main -- <fichier-a-restaurer>"],
@@ -205,12 +217,17 @@
         "Croire qu'il suffit d'un nouveau commit pour effacer une erreur : le robot compare votre branche ENTIÈRE à 'main', pas votre dernier commit. Un fichier interdit reste signalé tant qu'il n'est pas revenu à son contenu d'origine.",
         "Ouvrir la Pull Request depuis le compte d'un·e camarade absent·e de '.github/groupes.json' : le robot juge l'auteur de la demande, pas l'auteur des commits. Le test passe alors au rouge avec « n'est assigné à aucun groupe ».",
         "Ouvrir la Pull Request contre la mauvaise branche de base : la cible doit être 'main'.",
-        "Croire que le test au vert vaut validation du jeu : il vérifie seulement que vous n'avez pas touché aux fichiers communs, pas que votre jeu fonctionne."
+        "Croire que le test au vert vaut validation du jeu : il vérifie seulement que vous n'avez pas touché aux fichiers communs, pas que votre jeu fonctionne.",
+        "Attendre qu'un·e enseignant·e vienne fusionner : personne ne le fera à votre place. Une fois le test au vert et la relecture faite, c'est votre équipe qui clique sur « Merge pull request ».",
+        "Approuver sans lire, pour débloquer le bouton plus vite : la relecture est justement là pour rattraper le fichier oublié ou l'image de 30 Mo avant qu'ils n'arrivent sur 'main'. Prenez les deux minutes.",
+        "Chercher à approuver sa propre demande : GitHub le refuse, c'est le principe même de la relecture. Si votre coéquipier·ère est absent·e le jour où vous voulez fusionner, prévenez votre enseignant·e plutôt que d'utiliser son compte."
       ],
       "verification": [
         "La Pull Request apparaît dans l'onglet « Pull requests » du dépôt, avec le nom de votre équipe.",
         "Le test 'verifier-acces' est au vert.",
-        "L'onglet « Files changed » de la Pull Request ne liste que des fichiers de 'games/<votre-groupe>/'."
+        "L'onglet « Files changed » de la Pull Request ne liste que des fichiers de 'games/<votre-groupe>/'.",
+        "Une pastille verte « Approved » accompagne le nom du relecteur ou de la relectrice.",
+        "Après la fusion, la Pull Request affiche une pastille violette « Merged », et le dossier de votre équipe contient bien votre jeu quand on consulte la branche 'main' sur GitHub."
       ]
     }
   ]
