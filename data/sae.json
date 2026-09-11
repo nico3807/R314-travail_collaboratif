@@ -122,7 +122,7 @@
       "titre": "Enregistrer ses modifications (commit) et les envoyer sur GitHub (push)",
       "solo": true,
       "objectif": "Sauvegarder son travail dans l'historique du projet et le rendre visible par l'équipe et par l'équipe enseignante.",
-      "contexte": "À faire dès qu'une fonctionnalité est terminée, et dans tous les cas en fin de séance.",
+      "contexte": "À faire dès qu'une fonctionnalité est terminée, et dans tous les cas en fin de séance. Si vous avez suivi le TP sur le travail collaboratif, une précision : on vous y demandait d'éviter le bouton « Synchroniser les modifications », parce qu'il enchaîne le tirer et le pousser sans rien montrer, et qu'il s'agissait justement d'observer un refus de push. Ici, l'objectif n'est plus de comprendre le mécanisme mais de livrer votre jeu : ce même bouton devient le plus sûr, puisqu'il évite l'erreur au lieu de la provoquer.",
       "commun": {
         "label": "À faire chacun·e sur son poste",
         "etapes": [
