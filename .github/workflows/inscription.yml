@@ -7,25 +7,36 @@ on:
 permissions:
   issues: write
 
+# Les inscriptions arrivent toutes dans le même quart d'heure : sans cette
+# file d'attente, deux exécutions simultanées pousseraient sur Test_arcade en
+# même temps et la seconde serait rejetée.
+concurrency:
+  group: inscription-arcade
+  cancel-in-progress: false
+
+env:
+  DEPOT_ARCADE: nico3807/Test_arcade
+
 jobs:
   valider:
     if: contains(github.event.issue.labels.*.name, 'inscription')
     runs-on: ubuntu-latest
     steps:
-      - name: Lire le groupe déclaré et répondre
+      - name: Lire le groupe déclaré
+        id: lecture
         env:
           # Le corps de l'issue est écrit par n'importe qui sur Internet : il ne
           # doit JAMAIS être interpolé directement dans le script shell. On le
           # fait transiter par une variable d'environnement.
-          PYTHONIOENCODING: utf-8
           CORPS: ${{ github.event.issue.body }}
           AUTEUR: ${{ github.event.issue.user.login }}
-          NUMERO: ${{ github.event.issue.number }}
-          GH_TOKEN: ${{ github.token }}
           DEPOT: ${{ github.repository }}
+          # Tant que le jeton n'est pas en place, on ne promet pas d'invitation.
+          ARCADE_PRET: ${{ secrets.TOKEN_ARCADE != '' }}
+          PYTHONIOENCODING: utf-8
         run: |
           python - << 'EOF' > reponse.md
-          import os, re, sys
+          import os, re
 
           groupes = ([f"TPA1_groupe{i}" for i in range(1, 7)]
                      + [f"TPA2_groupe{i}" for i in range(1, 7)]
@@ -40,8 +51,9 @@ jobs:
           #   TPA1_groupe1
           bloc = re.search(r"###\s*Votre groupe\s*\n+(.+?)(?:\n###|\Z)", corps, re.S)
           declare = bloc.group(1).strip().splitlines()[0].strip() if bloc else ""
+          valide = declare in groupes
 
-          if declare not in groupes:
+          if not valide:
               print(f"@{auteur} : impossible de lire votre groupe.")
               print()
               print(f"La valeur trouvée est `{declare or '(vide)'}`, qui ne correspond à")
@@ -51,22 +63,101 @@ jobs:
               print(f"**Fermez cette demande et recommencez** depuis [le formulaire]"
                     f"(https://github.com/{os.environ['DEPOT']}/issues/new?template=inscription.yml),")
               print("en choisissant votre groupe dans la liste déroulante.")
-              open("statut.txt", "w", encoding="utf-8").write("non")
-              sys.exit(0)
+          else:
+              print(f"Inscription enregistrée : **@{auteur}** rejoint **{declare}**.")
+              print()
+              if os.environ.get("ARCADE_PRET") == "true":
+                  print("Votre accès au dépôt privé `Test_arcade` est en cours d'attribution ;")
+                  print("l'invitation arrive par courriel d'ici une minute. Acceptez-la, puis")
+                  print("reprenez la fiche Préparation SAÉ à l'étape 2.")
+              else:
+                  print("Votre enseignant·e vous enverra l'invitation au dépôt privé")
+                  print("`Test_arcade` prochainement. Vous reprendrez alors la fiche")
+                  print("Préparation SAÉ à l'étape 2.")
+              print()
+              print("> Vous vous êtes trompé·e de groupe ? Ouvrez une seconde demande :")
+              print("> c'est toujours la plus récente qui fait foi, tout se corrigera seul.")
 
-          print(f"Inscription enregistrée : **@{auteur}** rejoint **{declare}**.")
-          print()
-          print("Il n'y a plus rien à faire de votre côté pour l'instant. Vous recevrez")
-          print("par courriel une invitation à rejoindre le dépôt privé `Test_arcade` ;")
-          print("acceptez-la, puis reprenez la fiche Préparation SAÉ à l'étape 2.")
-          print()
-          print("> Vous vous êtes trompé·e de groupe ? Ouvrez une seconde demande :")
-          print("> c'est toujours la plus récente qui fait foi.")
-          open("statut.txt", "w", encoding="utf-8").write("oui")
+          # 'secrets' n'est pas lisible depuis un 'if:' d'etape : on fait donc
+          # transiter la presence du jeton par une sortie.
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write(f"valide={'oui' if valide else 'non'}\n")
+              f.write(f"groupe={declare if valide else ''}\n")
+              f.write(f"arcade_pret={os.environ.get('ARCADE_PRET', 'false')}\n")
           EOF
 
+      - name: Répondre à l'étudiant·e
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMERO: ${{ github.event.issue.number }}
+          DEPOT: ${{ github.repository }}
+        run: |
           gh issue comment "$NUMERO" --repo "$DEPOT" --body-file reponse.md
-
-          if [ "$(cat statut.txt)" = "oui" ]; then
+          if [ "${{ steps.lecture.outputs.valide }}" = "oui" ]; then
             gh issue close "$NUMERO" --repo "$DEPOT"
           fi
+
+      - name: Inscrire dans Test_arcade et inviter
+        if: steps.lecture.outputs.valide == 'oui' && steps.lecture.outputs.arcade_pret == 'true'
+        env:
+          JETON: ${{ secrets.TOKEN_ARCADE }}
+          AUTEUR: ${{ github.event.issue.user.login }}
+          GROUPE: ${{ steps.lecture.outputs.groupe }}
+          NUMERO: ${{ github.event.issue.number }}
+          PYTHONIOENCODING: utf-8
+        run: |
+          git clone --depth 1 --quiet \
+            "https://x-access-token:$JETON@github.com/$DEPOT_ARCADE.git" arcade
+
+          python - << 'EOF'
+          import json, os, re
+
+          chemin = "arcade/.github/groupes.json"
+          auteur = os.environ["AUTEUR"]
+          cle = "games/%s/" % os.environ["GROUPE"]
+
+          with open(chemin, encoding="utf-8") as f:
+              groupes = json.load(f)
+
+          # 1. Une personne n'appartient qu'a un seul groupe : on la retire
+          #    partout avant de l'ajouter, ce qui rend les corrections gratuites.
+          for k in groupes:
+              groupes[k] = [m for m in groupes[k] if m.lower() != auteur.lower()]
+
+          # 2. Les pseudos fictifs du groupe vise n'ont plus de raison d'etre
+          #    des qu'une vraie personne s'y declare.
+          groupes.setdefault(cle, [])
+          groupes[cle] = [m for m in groupes[cle]
+                          if not re.fullmatch(r"pseudo_etudiant\d*", m)]
+          groupes[cle].append(auteur)
+
+          with open(chemin, "w", encoding="utf-8") as f:
+              json.dump(groupes, f, ensure_ascii=False, indent=2)
+              f.write("\n")
+
+          print(f"{cle} -> {groupes[cle]}")
+          EOF
+
+          cd arcade
+          git config user.name "Robot inscriptions"
+          git config user.email "actions@github.com"
+          if git diff --quiet; then
+            echo "Aucun changement : $AUTEUR etait deja inscrit dans $GROUPE."
+          else
+            git add .github/groupes.json
+            git commit --quiet -m "Inscrit $AUTEUR dans $GROUPE (demande #$NUMERO)"
+            git push --quiet origin HEAD:main
+            echo "groupes.json mis a jour."
+          fi
+
+      - name: Inviter sur le dépôt privé
+        if: steps.lecture.outputs.valide == 'oui' && steps.lecture.outputs.arcade_pret == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_ARCADE }}
+          AUTEUR: ${{ github.event.issue.user.login }}
+        run: |
+          # Idempotent : reinviter un collaborateur deja present ne fait rien.
+          gh api --method PUT \
+            "repos/$DEPOT_ARCADE/collaborators/$AUTEUR" \
+            -f permission=push > /dev/null
+          echo "Invitation envoyee a $AUTEUR (ou deja collaborateur)."
