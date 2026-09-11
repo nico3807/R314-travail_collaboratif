@@ -131,19 +131,22 @@
           "Vérification visuelle : s'assurer qu'aucun fichier situé hors de votre dossier n'a été modifié par accident. C'est ici que ça se rattrape le plus facilement.",
           "Dans la zone de texte au-dessus, marquée « Message », écrire ce que vous avez fait (exemple : 'Ajout du joueur et gestion des collisions').",
           "Cliquer sur le bouton bleu « Valider » (Commit).",
-          "Cliquer ensuite sur « Publier la branche » (Publish Branch) la première fois, puis sur « Synchroniser les modifications » (Sync Changes) les fois suivantes. Vos modifications sont alors sur GitHub."
+          "Cliquer enfin sur « Synchroniser les modifications » (Sync Changes) : vos modifications partent sur GitHub. Seule la personne qui a créé la branche à l'étape 2 et ne l'a pas encore publiée verra « Publier la branche » (Publish Branch) à la place."
         ]
       },
       "commandes": [
         "git add games/<votre-groupe>",
         "git commit -m \"message\"",
-        "git push -u origin <votre-branche>"
+        "git pull",
+        "git push"
       ],
       "pieges": [
         "Valider sans avoir rien mis en attente : VS Code propose alors de committer TOUTES les modifications, y compris celles qu'on ne voulait pas.",
         "Écrire un message vague du type « modif » ou « test » : dans trois semaines, personne ne saura ce que contenait ce commit.",
         "Committer sans jamais pousser : le travail reste sur votre machine et personne ne le voit. Un commit n'est pas un envoi.",
-        "Pousser alors qu'on est resté sur 'main' : GitHub refuse le push avec un message de protection de branche. Rien n'est perdu, il faut créer la branche d'équipe (étape 2) et recommencer le push."
+        "Être plusieurs à pousser sur la branche d'équipe : la première personne passe, la suivante voit « Impossible de pousser les références vers la branche distante ». Rien à voir avec l'erreur de l'étape 2 — ici c'est bien la même branche, il vous manque seulement les commits de votre camarade. Faire « Tirer » (Pull) pour les récupérer, puis pousser à nouveau. Le bouton « Synchroniser les modifications » enchaîne les deux d'un seul clic, c'est pourquoi on le préfère à un simple « Pousser ».",
+        "Modifier le même fichier que son camarade en même temps : au moment du Tirer, Git ne peut plus fusionner seul et signale un conflit à résoudre. Se répartir les fichiers au sein de l'équipe évite la quasi-totalité des conflits.",
+        "Pousser alors qu'on est resté sur 'main' : GitHub refuse le push avec un message de protection de branche. Rien n'est perdu, il faut basculer sur la branche d'équipe (étape 2) et recommencer le push."
       ],
       "verification": [
         "Sur GitHub, la branche de votre équipe apparaît dans la liste déroulante des branches et contient bien vos derniers fichiers.",
