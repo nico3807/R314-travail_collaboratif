@@ -1,10 +1,14 @@
-// Page scénarios : charge data/scenarios.json, affiche les fiches en
-// accordéon, gère le filtre de vue (Étudiant A / Étudiant B / Les deux)
-// et un suivi de progression en mémoire (non persisté entre deux visites,
-// volontairement : chaque séance repart d'un état propre).
+// Rendu des fiches en accordéon, avec un suivi de progression en mémoire
+// (non persisté entre deux visites, volontairement : chaque séance repart
+// d'un état propre). Le fichier de données et le libellé du compteur sont
+// lus sur le conteneur, ce qui permet de servir aussi bien la page
+// Scénarios (deux rôles, filtre de vue) que la page Préparation SAÉ
+// (fiches solo). Le filtre de rôle ne s'active que si la barre existe.
 
 (function () {
   var list = document.getElementById('scenario-list');
+  var source = list.getAttribute('data-source') || 'data/scenarios.json';
+  var noun = list.getAttribute('data-noun') || 'scénarios réalisés';
   var progressText = document.getElementById('progress-text');
   var roleButtons = document.querySelectorAll('.role-toggle button');
   var modal = document.getElementById('modal');
@@ -16,11 +20,15 @@
   // l'indice, ce qui évite de sérialiser du HTML dans un attribut.
   var popups = [];
 
+  // Les guillemets sont échappés eux aussi : la même fonction sert au texte
+  // et aux valeurs d'attributs (src, href, alt).
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   function renderList(items, label) {
@@ -52,9 +60,18 @@
       escapeHtml(popup.bouton) + '</button>';
   }
 
+  // Une étape peut porter un lien externe : { texte, lien: { url, libelle } }.
+  function renderLien(lien) {
+    if (!lien || !lien.url) return '';
+    return ' <a class="etape-lien" href="' + escapeHtml(lien.url) +
+      '" target="_blank" rel="noopener noreferrer">' +
+      escapeHtml(lien.libelle || lien.url) + '</a>';
+  }
+
   function renderEtape(etape) {
     if (typeof etape === 'string') return '<li>' + escapeHtml(etape) + '</li>';
     return '<li>' + escapeHtml(etape.texte) +
+      renderLien(etape.lien) +
       (etape.popup ? renderPopupBouton(etape.popup) : '') +
       renderFigures(etape) +
       '</li>';
@@ -71,10 +88,14 @@
   function scenarioMarkup(s) {
     var rolesHtml;
     if (s.solo) {
-      rolesHtml = '<div class="grid cols-2">' + renderRoleCol(s.commun, 'role-a', 'Chacun·e de son côté') + '</div>';
+      rolesHtml = '<div class="grid cols-2">' +
+        renderRoleCol(s.commun, 'role-a', s.commun.label || 'Chacun·e de son côté') +
+        '</div>';
     } else {
-      var colA = renderRoleCol(s.roleA, 'role-a', 'Étudiant·e A');
-      var colB = renderRoleCol(s.roleB, 'role-b', 'Étudiant·e B');
+      // Les binômes du TP s'appellent Théodora et PLK ; la fiche SAÉ réutilise
+      // les deux colonnes pour d'autres rôles et fournit alors ses libellés.
+      var colA = renderRoleCol(s.roleA, 'role-a', (s.roleA && s.roleA.label) || 'Théodora');
+      var colB = renderRoleCol(s.roleB, 'role-b', (s.roleB && s.roleB.label) || 'PLK');
       rolesHtml = '<div class="grid cols-2" data-roles>' +
         (currentView !== 'b' ? colA : '') +
         (currentView !== 'a' ? colB : '') +
@@ -84,15 +105,16 @@
     return (
       '<div class="scenario" id="scenario-' + s.id + '" data-id="' + s.id + '">' +
         '<div class="scenario-head">' +
-          '<input type="checkbox" class="scenario-check" aria-label="Marquer le scénario ' + s.id + ' comme réalisé">' +
+          '<input type="checkbox" class="scenario-check" aria-label="Marquer « ' + escapeHtml(s.titre) + ' » comme réalisé">' +
           '<div class="scenario-num">' + s.id + '</div>' +
           '<h3>' + escapeHtml(s.titre) + '</h3>' +
-          '<span class="scenario-meta">' + escapeHtml(s.duree) + '</span>' +
+          (s.duree ? '<span class="scenario-meta">' + escapeHtml(s.duree) + '</span>' : '') +
           '<span class="scenario-caret" aria-hidden="true">&#9656;</span>' +
         '</div>' +
         '<div class="scenario-body">' +
           '<p><strong>Objectif —</strong> ' + escapeHtml(s.objectif) + '</p>' +
           (s.contexte ? '<p class="lede">' + escapeHtml(s.contexte) + '</p>' : '') +
+          (s.alerte ? '<div class="info-block interdit-block"><h4>' + escapeHtml(s.alerte.titre) + '</h4><ul>' + renderList(s.alerte.items) + '</ul></div>' : '') +
           '<div class="roles-wrap">' + rolesHtml + '</div>' +
           renderCommandes(s.commandes) +
           (s.pieges && s.pieges.length ? '<div class="info-block pieges-block"><h4>Pièges fréquents</h4><ul>' + renderList(s.pieges) + '</ul></div>' : '') +
@@ -103,7 +125,7 @@
   }
 
   function updateProgress() {
-    progressText.textContent = doneCount + ' / ' + total + ' scénarios réalisés';
+    if (progressText) progressText.textContent = doneCount + ' / ' + total + ' ' + noun;
   }
 
   function popupMarkup(p) {
@@ -142,13 +164,15 @@
     modal.hidden = true;
   }
 
-  modal.addEventListener('click', function (evt) {
-    if (evt.target === modal || evt.target.closest('.modal-close')) fermerPopup();
-  });
+  if (modal) {
+    modal.addEventListener('click', function (evt) {
+      if (evt.target === modal || evt.target.closest('.modal-close')) fermerPopup();
+    });
 
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape' && !modal.hidden) fermerPopup();
-  });
+    document.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Escape' && !modal.hidden) fermerPopup();
+    });
+  }
 
   function attachHandlers() {
     list.querySelectorAll('.popup-btn').forEach(function (btn) {
@@ -196,7 +220,7 @@
     });
   });
 
-  fetch('data/scenarios.json')
+  fetch(source)
     .then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
@@ -208,9 +232,9 @@
     .catch(function (err) {
       list.innerHTML =
         '<div class="callout danger">' +
-        '<h4>Impossible de charger data/scenarios.json</h4>' +
+        '<h4>Impossible de charger ' + escapeHtml(source) + '</h4>' +
         '<p>Cette page charge ses données avec <code>fetch()</code>, ce que les navigateurs bloquent souvent quand un fichier HTML est ouvert directement en double-clic (protocole <code>file://</code>).</p>' +
-        '<p><strong>Solution :</strong> dans VSCode, installez l\'extension « Live Server », clic droit sur <code>scenarios.html</code> puis « Open with Live Server » (ou lancez <code>npx serve</code> à la racine du dépôt).</p>' +
+        '<p><strong>Solution :</strong> dans VSCode, installez l\'extension « Live Server », clic droit sur la page puis « Open with Live Server » (ou lancez <code>npx serve</code> à la racine du dépôt).</p>' +
         '<p style="color:var(--text-muted);font-size:0.85em">Détail technique : ' + escapeHtml(err.message) + '</p>' +
         '</div>';
     });
