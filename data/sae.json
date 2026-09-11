@@ -31,36 +31,55 @@
     },
     {
       "id": 2,
-      "titre": "Créer la branche dédiée à votre groupe",
-      "solo": true,
-      "objectif": "Isoler le travail de l'équipe dans sa propre branche, seule façon d'envoyer quoi que ce soit sur ce dépôt.",
+      "titre": "Mettre toute l'équipe sur la branche du groupe",
+      "objectif": "Isoler le travail de l'équipe dans une branche unique, seule façon d'envoyer quoi que ce soit sur ce dépôt.",
+      "contexte": "Attention, cette étape ne se fait pas de la même façon selon que vous êtes la première personne de l'équipe à s'y mettre ou non. La branche ne se crée qu'UNE SEULE FOIS, sur un seul poste : les autres la récupèrent.",
       "alerte": {
         "titre": "Règle absolue",
         "items": [
           "On ne travaille jamais directement sur la branche 'main'. Ce n'est pas qu'une consigne : la branche est verrouillée sur GitHub, et un push direct y est refusé par le serveur, même si le commit est parfaitement correct.",
-          "Toute modification doit passer par une branche d'équipe, puis par une Pull Request (étape 5).",
-          "Une seule branche pour toute l'équipe, pas une par personne."
+          "Toute modification doit passer par la branche d'équipe, puis par une Pull Request (étape 5).",
+          "Une seule branche pour toute l'équipe : une seule personne la crée, les autres la récupèrent."
         ]
       },
-      "commun": {
-        "label": "À faire chacun·e sur son poste",
+      "roleA": {
+        "label": "La première personne seulement",
+        "resume": "crée la branche et la publie",
         "etapes": [
-          "Regarder tout en bas à gauche de la fenêtre de VS Code, dans la barre d'état colorée.",
-          "Le symbole d'une petite branche y est suivi du mot 'main'.",
-          "Cliquer directement sur ce mot 'main'.",
-          "Une barre s'ouvre tout en haut de l'écran : choisir « + Créer une nouvelle branche... » (Create new branch...).",
-          "Donner à la branche le nom exact de votre groupe, celui de votre dossier de jeu (exemple : 'TPA1_groupe1'), et appuyer sur Entrée.",
-          "C'est la même branche pour toute l'équipe : les suivant·es la retrouveront dans cette même liste, sans avoir à la recréer."
+          "Regarder tout en bas à gauche de la fenêtre de VS Code : le symbole d'une petite branche est suivi du mot 'main'.",
+          "Cliquer directement sur ce mot 'main'. Une barre s'ouvre tout en haut de l'écran : choisir « + Créer une nouvelle branche... » (Create new branch...).",
+          "Saisir le nom exact de votre groupe, celui de votre dossier de jeu (exemple : 'TPA1_groupe1'), et appuyer sur Entrée.",
+          "Ouvrir le Contrôle de code source et cliquer sur « Publier la branche » (Publish Branch). La branche existe maintenant sur GitHub.",
+          "Prévenir le reste de l'équipe, à l'oral, que la branche est publiée. Tant que ce n'est pas fait, personne ne peut la récupérer."
         ]
       },
-      "commandes": ["git checkout -b TPA1_groupe1", "git branch"],
+      "roleB": {
+        "label": "Tous les autres membres",
+        "resume": "récupèrent la branche existante",
+        "etapes": [
+          "Ne créez pas de branche. Celle de votre équipe existe déjà : en créer une du même nom sur votre poste en fabriquerait une seconde, différente, et votre premier envoi serait refusé.",
+          "Attendre que la première personne confirme que la branche est publiée.",
+          "Dans le Contrôle de code source, ouvrir le menu ⋯ et choisir « Récupérer » (Fetch) : Git demande à GitHub la liste à jour des branches.",
+          "Cliquer sur le nom de la branche en bas à gauche : 'origin/TPA1_groupe1' apparaît désormais dans la liste. La sélectionner.",
+          "VS Code bascule sur la branche d'équipe et la relie automatiquement à celle de GitHub. Son nom s'affiche en bas à gauche, sans le préfixe 'origin/'."
+        ]
+      },
+      "commandes": [
+        "git checkout -b TPA1_groupe1",
+        "git push -u origin TPA1_groupe1",
+        "git fetch origin",
+        "git switch TPA1_groupe1"
+      ],
       "pieges": [
+        "Créer la branche chacun·e de son côté : vous obtenez deux branches différentes qui portent le même nom. La deuxième personne à publier voit « Impossible de pousser les références vers la branche distante » — Git refuse d'écraser le commit de la première. Pour s'en sortir : basculer sur 'main', supprimer sa branche locale (palette de commandes > 'Git: Delete Branch'), faire « Récupérer », puis sélectionner 'origin/TPA1_groupe1'.",
+        "Répondre à ce refus par un envoi forcé (« Push (Force) », ou 'git push --force') : c'est la seule manœuvre qui détruise réellement le travail déjà publié par votre camarade. On ne force jamais sur une branche partagée.",
         "Inventer un nom de branche : reprendre à l'identique celui du dossier de votre groupe, sans espace ni accent. Une branche 'jeu', 'test' ou 'ma-branche' rend le suivi impossible côté enseignant, avec vingt équipes sur le même dépôt.",
-        "Créer la branche alors qu'on n'était pas sur 'main' : la nouvelle branche part alors du travail de quelqu'un d'autre. Vérifier le nom affiché en bas à gauche AVANT de cliquer.",
-        "Créer une branche par personne au lieu d'une branche par équipe : vous vous retrouveriez avec autant de Pull Requests que de membres, et du travail éparpillé."
+        "Créer la branche alors qu'on n'était pas sur 'main' : elle part alors du travail de quelqu'un d'autre. Vérifier le nom affiché en bas à gauche AVANT de cliquer."
       ],
       "verification": [
-        "Tout en bas à gauche, c'est le nom de votre nouvelle branche qui s'affiche, et non plus 'main'."
+        "Tout en bas à gauche, chaque membre de l'équipe affiche le même nom de branche, et non plus 'main'.",
+        "Dans la liste déroulante des branches sur GitHub, votre équipe n'apparaît qu'une seule fois.",
+        "Si vous avez fait « Récupérer », la branche est reliée à GitHub : VS Code propose « Synchroniser les modifications » et non « Publier la branche »."
       ]
     },
     {

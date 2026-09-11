@@ -79,8 +79,10 @@
         renderRoleCol(s.commun, 'role-a', s.commun.label || 'Chacun·e de son côté') +
         '</div>';
     } else {
-      var colA = renderRoleCol(s.roleA, 'role-a', 'Théodora');
-      var colB = renderRoleCol(s.roleB, 'role-b', 'PLK');
+      // Les binômes du TP s'appellent Théodora et PLK ; la fiche SAÉ réutilise
+      // les deux colonnes pour d'autres rôles et fournit alors ses libellés.
+      var colA = renderRoleCol(s.roleA, 'role-a', (s.roleA && s.roleA.label) || 'Théodora');
+      var colB = renderRoleCol(s.roleB, 'role-b', (s.roleB && s.roleB.label) || 'PLK');
       rolesHtml = '<div class="grid cols-2" data-roles>' +
         (currentView !== 'b' ? colA : '') +
         (currentView !== 'a' ? colB : '') +
