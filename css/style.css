@@ -718,32 +718,18 @@ th {
   border: 1px solid var(--border);
 }
 
+/* L'image porte deja son propre fond : un cadre autour ferait doublon. */
 .diagram {
-  background: var(--bg-alt);
+  margin: 1.5rem 0;
+}
+.diagram img {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin: 0 auto;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1rem;
-}
-.diagram text {
-  fill: var(--text);
-  font-family: inherit;
-}
-.diagram .muted {
-  fill: var(--text-muted);
-}
-.diagram .zone {
-  fill: var(--primary-bg);
-  stroke: var(--primary);
-}
-.diagram .zone-remote {
-  fill: var(--accent-b-bg);
-  stroke: var(--accent-b);
-}
-.diagram .arrow {
-  stroke: var(--text-muted);
-  stroke-width: 1.6;
-  marker-end: url(#arrowhead);
-  fill: none;
 }
 
 footer a {
