@@ -130,9 +130,14 @@ def main() -> None:
         print("  Leurs membres seront bloqués par le robot tant qu'ils ne se")
         print("  seront pas inscrits. Relancez ce script après leur inscription.")
 
-    deja = {c["login"].lower() for c in json.loads(
-        gh("api", f"repos/{DEPOT_ARCADE}/collaborators", "--paginate")
-    )}
+    # '--paginate' sans '--jq' concatene plusieurs tableaux JSON, ce qui n'est
+    # plus du JSON valide : on demande donc directement les pseudos, un par ligne.
+    deja = {
+        ligne.strip().lower()
+        for ligne in gh("api", f"repos/{DEPOT_ARCADE}/collaborators",
+                        "--paginate", "--jq", ".[].login").splitlines()
+        if ligne.strip()
+    }
     a_inviter = [p for p in sorted(inscriptions) if p.lower() not in deja]
     print(f"\nInvitations à envoyer : {len(a_inviter)}")
     for pseudo in a_inviter:

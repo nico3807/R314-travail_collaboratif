@@ -20,11 +20,15 @@
   // l'indice, ce qui évite de sérialiser du HTML dans un attribut.
   var popups = [];
 
+  // Les guillemets sont échappés eux aussi : la même fonction sert au texte
+  // et aux valeurs d'attributs (src, href, alt).
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   function renderList(items, label) {
@@ -56,9 +60,18 @@
       escapeHtml(popup.bouton) + '</button>';
   }
 
+  // Une étape peut porter un lien externe : { texte, lien: { url, libelle } }.
+  function renderLien(lien) {
+    if (!lien || !lien.url) return '';
+    return ' <a class="etape-lien" href="' + escapeHtml(lien.url) +
+      '" target="_blank" rel="noopener noreferrer">' +
+      escapeHtml(lien.libelle || lien.url) + '</a>';
+  }
+
   function renderEtape(etape) {
     if (typeof etape === 'string') return '<li>' + escapeHtml(etape) + '</li>';
     return '<li>' + escapeHtml(etape.texte) +
+      renderLien(etape.lien) +
       (etape.popup ? renderPopupBouton(etape.popup) : '') +
       renderFigures(etape) +
       '</li>';

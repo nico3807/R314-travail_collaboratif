@@ -2,6 +2,42 @@
   "scenarios": [
     {
       "id": 1,
+      "titre": "Déclarer votre compte GitHub",
+      "solo": true,
+      "objectif": "Faire savoir quel compte GitHub est le vôtre et dans quel groupe vous travaillez, pour recevoir l'accès au dépôt du projet.",
+      "contexte": "Rien d'autre ne peut démarrer tant que cette étape n'est pas faite. Le dépôt est privé : on n'y entre que sur invitation, et il faut bien que quelqu'un sache à quelle adresse vous l'envoyer. Surtout, c'est votre pseudo GitHub qui décidera du dossier dans lequel vous aurez le droit d'écrire : un robot s'y réfèrera à chaque fois que votre équipe voudra intégrer son jeu.",
+      "commun": {
+        "label": "À faire chacun·e sur son poste",
+        "resume": "cinq minutes, une seule fois",
+        "etapes": [
+          "Être connecté·e à GitHub avec le compte que vous utiliserez toute la SAÉ. Si vous n'en avez pas encore, créez-le d'abord (voir la page Prérequis).",
+          {
+            "texte": "Ouvrir le formulaire d'inscription :",
+            "lien": {
+              "url": "https://github.com/nico3807/R314-travail_collaboratif/issues/new?template=inscription.yml",
+              "libelle": "Formulaire d'inscription"
+            }
+          },
+          "Vérifier, en haut à droite de la page, que le compte affiché est bien le vôtre. C'est lui qui sera enregistré : vous n'avez pas votre pseudo à saisir, et donc aucune faute de frappe possible.",
+          "Choisir votre groupe dans la liste déroulante. En cas d'hésitation, demander plutôt que de deviner : c'est ce choix qui détermine le dossier où vous pourrez travailler.",
+          "Cocher la case de confirmation, puis cliquer sur le bouton vert « Create ».",
+          "Attendre une dizaine de secondes puis rafraîchir la page : une réponse automatique récapitule le pseudo et le groupe enregistrés, et la demande se ferme d'elle-même. C'est le signe que tout est bon.",
+          "Surveiller ensuite votre boîte mail : l'invitation au dépôt privé arrivera séparément. Vous la traiterez à l'étape 2."
+        ]
+      },
+      "pieges": [
+        "Remplir le formulaire depuis le compte GitHub d'un·e camarade, sur son ordinateur : c'est SON pseudo qui sera enregistré dans votre groupe, et le vôtre restera inconnu du robot. Connectez-vous d'abord avec votre propre compte.",
+        "Écrire une demande à la main au lieu de passer par le formulaire : le groupe ne peut alors pas être lu, et la réponse automatique vous demandera de recommencer.",
+        "Se tromper de groupe n'a rien de grave : ouvrez simplement une seconde inscription, c'est la plus récente qui fait foi. Inutile d'écrire à qui que ce soit.",
+        "Attendre l'invitation sans avoir rempli le formulaire : personne ne peut deviner votre pseudo GitHub. Tant que l'inscription n'est pas faite, il ne se passera rien."
+      ],
+      "verification": [
+        "Votre demande d'inscription est fermée et porte une réponse automatique qui cite votre pseudo et votre groupe.",
+        "Le pseudo cité dans cette réponse est bien le vôtre, et le groupe est bien celui qui vous a été attribué en cours."
+      ]
+    },
+    {
+      "id": 2,
       "titre": "Rejoindre le dépôt privé et le cloner dans VS Code",
       "solo": true,
       "objectif": "Accepter l'invitation au dépôt Test_arcade, puis en récupérer sur son ordinateur une copie complète reliée à GitHub.",
@@ -30,7 +66,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": 3,
       "titre": "Mettre toute l'équipe sur la branche du groupe",
       "objectif": "Isoler le travail de l'équipe dans une branche unique, seule façon d'envoyer quoi que ce soit sur ce dépôt.",
       "contexte": "Attention, cette étape ne se fait pas de la même façon selon que vous êtes la première personne de l'équipe à s'y mettre ou non. La branche ne se crée qu'UNE SEULE FOIS, sur un seul poste : les autres la récupèrent.",
@@ -38,7 +74,7 @@
         "titre": "Règle absolue",
         "items": [
           "On ne travaille jamais directement sur la branche 'main'. Ce n'est pas qu'une consigne : la branche est verrouillée sur GitHub, et un push direct y est refusé par le serveur, même si le commit est parfaitement correct.",
-          "Toute modification doit passer par la branche d'équipe, puis par une Pull Request (étape 5).",
+          "Toute modification doit passer par la branche d'équipe, puis par une Pull Request (étape 6).",
           "Une seule branche pour toute l'équipe : une seule personne la crée, les autres la récupèrent."
         ]
       },
@@ -83,10 +119,10 @@
       ]
     },
     {
-      "id": 3,
+      "id": 4,
       "titre": "Travailler uniquement dans le dossier de jeu de votre équipe",
       "solo": true,
-      "objectif": "Limiter ses modifications à son propre jeu : c'est exactement ce que le robot de vérification contrôlera à l'étape 5.",
+      "objectif": "Limiter ses modifications à son propre jeu : c'est exactement ce que le robot de vérification contrôlera à l'étape 6.",
       "contexte": "Le dossier autorisé pour votre compte n'est pas choisi par vous : votre enseignant a associé chaque pseudo GitHub à un dossier de jeu dans le fichier '.github/groupes.json'. C'est ce fichier que le robot consultera.",
       "alerte": {
         "titre": "Interdiction formelle de modifier",
@@ -118,7 +154,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": 5,
       "titre": "Enregistrer ses modifications (commit) et les envoyer sur GitHub (push)",
       "solo": true,
       "objectif": "Sauvegarder son travail dans l'historique du projet et le rendre visible par l'équipe et par l'équipe enseignante.",
@@ -131,7 +167,7 @@
           "Vérification visuelle : s'assurer qu'aucun fichier situé hors de votre dossier n'a été modifié par accident. C'est ici que ça se rattrape le plus facilement.",
           "Dans la zone de texte au-dessus, marquée « Message », écrire ce que vous avez fait (exemple : 'Ajout du joueur et gestion des collisions').",
           "Cliquer sur le bouton bleu « Valider » (Commit).",
-          "Cliquer enfin sur « Synchroniser les modifications » (Sync Changes) : vos modifications partent sur GitHub. Seule la personne qui a créé la branche à l'étape 2 et ne l'a pas encore publiée verra « Publier la branche » (Publish Branch) à la place."
+          "Cliquer enfin sur « Synchroniser les modifications » (Sync Changes) : vos modifications partent sur GitHub. Seule la personne qui a créé la branche à l'étape 3 et ne l'a pas encore publiée verra « Publier la branche » (Publish Branch) à la place."
         ]
       },
       "commandes": [
@@ -144,9 +180,9 @@
         "Valider sans avoir rien mis en attente : VS Code propose alors de committer TOUTES les modifications, y compris celles qu'on ne voulait pas.",
         "Écrire un message vague du type « modif » ou « test » : dans trois semaines, personne ne saura ce que contenait ce commit.",
         "Committer sans jamais pousser : le travail reste sur votre machine et personne ne le voit. Un commit n'est pas un envoi.",
-        "Être plusieurs à pousser sur la branche d'équipe : la première personne passe, la suivante voit « Impossible de pousser les références vers la branche distante ». Rien à voir avec l'erreur de l'étape 2 — ici c'est bien la même branche, il vous manque seulement les commits de votre camarade. Faire « Tirer » (Pull) pour les récupérer, puis pousser à nouveau. Le bouton « Synchroniser les modifications » enchaîne les deux d'un seul clic, c'est pourquoi on le préfère à un simple « Pousser ».",
+        "Être plusieurs à pousser sur la branche d'équipe : la première personne passe, la suivante voit « Impossible de pousser les références vers la branche distante ». Rien à voir avec l'erreur de l'étape 3 — ici c'est bien la même branche, il vous manque seulement les commits de votre camarade. Faire « Tirer » (Pull) pour les récupérer, puis pousser à nouveau. Le bouton « Synchroniser les modifications » enchaîne les deux d'un seul clic, c'est pourquoi on le préfère à un simple « Pousser ».",
         "Modifier le même fichier que son camarade en même temps : au moment du Tirer, Git ne peut plus fusionner seul et signale un conflit à résoudre. Se répartir les fichiers au sein de l'équipe évite la quasi-totalité des conflits.",
-        "Pousser alors qu'on est resté sur 'main' : GitHub refuse le push avec un message de protection de branche. Rien n'est perdu, il faut basculer sur la branche d'équipe (étape 2) et recommencer le push."
+        "Pousser alors qu'on est resté sur 'main' : GitHub refuse le push avec un message de protection de branche. Rien n'est perdu, il faut basculer sur la branche d'équipe (étape 3) et recommencer le push."
       ],
       "verification": [
         "Sur GitHub, la branche de votre équipe apparaît dans la liste déroulante des branches et contient bien vos derniers fichiers.",
@@ -154,7 +190,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": 6,
       "titre": "Faire relire et intégrer votre jeu (Pull Request)",
       "objectif": "Faire vérifier automatiquement que vous n'avez touché qu'à votre jeu, le faire relire par votre coéquipier·ère, puis l'intégrer vous-mêmes dans 'main'.",
       "contexte": "Une seule Pull Request par équipe : elle se met à jour toute seule à chaque nouveau push sur la branche. Deux conditions doivent être réunies pour fusionner — le test au vert, et l'approbation d'une autre personne que l'auteur·rice de la demande. C'est donc un travail à deux, et vous n'avez besoin de personne d'autre.",
