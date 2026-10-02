@@ -43,7 +43,7 @@ R314-travail_collaboratif/
 ├── sae.html              Fiche consigne SAÉ : contribuer au dépôt Test_arcade
 ├── memo.html             Aide-mémoire commandes Git / VSCode
 ├── css/style.css         Feuille de style partagée
-├── img/                  Captures d'écran illustrant les étapes
+├── img/                  Captures d'écran illustrant les étapes, logos IUT et MMI de l'en-tête
 ├── js/
 │   ├── main.js           Navigation (lien actif)
 │   └── scenarios.js       Rendu des fiches (scénarios ET SAÉ), filtre de rôle, suivi
